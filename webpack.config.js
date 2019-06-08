@@ -12,7 +12,6 @@ const BabelPluginTransformRuntime = require('babel-plugin-transform-runtime');
 
 // Constants
 const OUTPUT_DIR = path.resolve('public');
-// const LIGHTNING_IN_A_BOX = envConfig[process.env.NODE_ENV];
 
 // Plugin Configuration
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -20,13 +19,13 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     filename: 'index.html',
     inject: 'body'
 });
-//
-// const EnvironmentPluginConfig = new webpack.DefinePlugin({
-//     'process.env': {
-//         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-//         APP_VERSION: process.env.npm_package_version
-//     }
-// });
+
+const EnvironmentPluginConfig = new webpack.DefinePlugin({
+    'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        APP_VERSION: JSON.stringify(process.env.npm_package_version)
+    }
+});
 
 // Exported Configuration
 module.exports = {
@@ -119,7 +118,7 @@ module.exports = {
     },
     plugins: [
         HtmlWebpackPluginConfig,
-        // EnvironmentPluginConfig
+        EnvironmentPluginConfig
     ],
     resolve: {
         extensions: [

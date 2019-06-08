@@ -7,7 +7,7 @@ import {
     updateApplicationState
 } from './actions';
 
-// const { NODE_ENV, npm_package_version: VERSION } = process.env;
+const { NODE_ENV, APP_VERSION } = process.env;
 
 /**
  * To initialise the application by preparing all needed data, including
@@ -22,7 +22,7 @@ export function* workerInitApplication() {
         }));
 
         /* eslint-disable-next-line no-console */
-        // console.log(`Lightning in a Box v${VERSION} ${NODE_ENV} initialized`);
+        console.log(`Lightning in a Box v${APP_VERSION} ${NODE_ENV} initialized`);
 
         yield put(initApplicationSignal.success());
     } catch (error) {
