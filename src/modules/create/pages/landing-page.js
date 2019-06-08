@@ -3,23 +3,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 
 // UI Dependencies
-import { Spin, Form, Input, Button, Row, Col } from 'antd';
+import { Spin, Form, Row, Col } from 'antd';
 
 // Local Dependencies
-import { createProjectSignal } from '../actions';
+import CreateRedeemBox from '../components/create-redeem-box';
 
 class LandingPage extends Component {
     static propTypes = {
-        form: PropTypes.shape({
-            getFieldDecorator: PropTypes.func.isRequired,
-            validateFields: PropTypes.func.isRequired
-        }).isRequired,
-        history: PropTypes.object.isRequired,
-        // createProject: PropTypes.func.isRequired
+
     };
 
     constructor(props) {
@@ -30,27 +24,8 @@ class LandingPage extends Component {
         };
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const { createProject, form, history } = this.props;
-
-        form.validateFields((err, values) => {
-            if (!err) {
-                const { repoUrl } = values;
-                let path = url.parse(repoUrl).pathname;
-
-                if (_.endsWith(path, '/')) {
-                    path = path.slice(0, -1);
-                }
-
-                createProject({ path }, { history });
-            }
-        });
-    };
-
     render() {
         const { loading } = this.state;
-        const { getFieldDecorator } = this.props.form;
 
         if (loading) {
             return (
@@ -62,11 +37,11 @@ class LandingPage extends Component {
 
         return (
             <Row type="flex" align="middle" justify="center" style={{ height: '100%' }}>
-                <Col sm={24} md={12} style={{ textAlign: 'center' }}>
-                    <h2 style={{ marginBottom: 20 }}>First, enter your repo github URL</h2>
+                <Col sm={24} md={12}>
+                    <h1 style={{ marginBottom: 20 }} className="avenir banner-text">Bitcoin gifts, minus the fees</h1>
                 </Col>
                 <Col sm={24} md={12} style={{ textAlign: 'center' }}>
-                    <h2 style={{ marginBottom: 20 }}>First, enter your repo github URL</h2>
+                    <CreateRedeemBox />
                 </Col>
             </Row>
         );
