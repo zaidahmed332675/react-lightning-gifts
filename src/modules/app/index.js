@@ -15,18 +15,18 @@ const { NODE_ENV } = process.env;
 const { Header, Content } = Layout;
 
 const App = () => (
-    <Layout className="layout" style={{ height: '100%' }}>
-        <Header style={{ color: 'white' }}>
+    <Layout className="layout" style={{ height: '100%', maxWidth: 1200, margin: '0px auto', background: 'white' }}>
+        <Header style={{ padding: '0px 24px', background: 'white' }}>
             <Row>
-                <Col span={8}>
+                <Col span={16}>
                     <span>Lightning ina box</span>
                 </Col>
-                <Col span={8} offset={8} style={{ textAlign: 'right' }}>
+                <Col span={8} style={{ textAlign: 'right' }}>
                     <span>{NODE_ENV}</span>
                 </Col>
             </Row>
         </Header>
-        <Content style={{ height: '100%' }}>
+        <Content style={{ height: '100%', padding: '0px 24px' }}>
             <Router>
                 <RouterMap />
             </Router>

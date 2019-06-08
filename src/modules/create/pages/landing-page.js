@@ -62,20 +62,11 @@ class LandingPage extends Component {
 
         return (
             <Row type="flex" align="middle" justify="center" style={{ height: '100%' }}>
-                <Col style={{ textAlign: 'center' }}>
+                <Col sm={24} md={12} style={{ textAlign: 'center' }}>
                     <h2 style={{ marginBottom: 20 }}>First, enter your repo github URL</h2>
-                    {/*<Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark>*/}
-                    {/*    <Form.Item>*/}
-                    {/*        {getFieldDecorator('repoUrl', {*/}
-                    {/*            rules: [{ required: true, message: 'Repo required' }]*/}
-                    {/*        })(<Input placeholder="Enter repo URL" />)}*/}
-                    {/*    </Form.Item>*/}
-                    {/*    <Form.Item>*/}
-                    {/*        <Button type="primary" htmlType="submit">*/}
-                    {/*            Create*/}
-                    {/*        </Button>*/}
-                    {/*    </Form.Item>*/}
-                    {/*</Form>*/}
+                </Col>
+                <Col sm={24} md={12} style={{ textAlign: 'center' }}>
+                    <h2 style={{ marginBottom: 20 }}>First, enter your repo github URL</h2>
                 </Col>
             </Row>
         );
