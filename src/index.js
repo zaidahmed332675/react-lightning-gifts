@@ -8,8 +8,8 @@ import App from 'modules/app';
 import store from './store';
 
 ReactDOM.render(
-<Provider store={store}>
-    <App />
+    <Provider store={store}>
+        <App />
     </Provider>,
-document.getElementById('root')
+    document.getElementById('root')
 );

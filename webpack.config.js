@@ -20,18 +20,18 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     filename: 'index.html',
     inject: 'body'
 });
-
+//
 // const EnvironmentPluginConfig = new webpack.DefinePlugin({
 //     'process.env': {
 //         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-//         LIGHTNING_IN_A_BOX: JSON.stringify(LIGHTNING_IN_A_BOX)
+//         APP_VERSION: process.env.npm_package_version
 //     }
 // });
 
 // Exported Configuration
 module.exports = {
     devServer: {
-        historyApiFallback: true,
+        // historyApiFallback: true,
         compress: true,
         port: 9000
     },
@@ -119,7 +119,7 @@ module.exports = {
     },
     plugins: [
         HtmlWebpackPluginConfig,
-        EnvironmentPluginConfig
+        // EnvironmentPluginConfig
     ],
     resolve: {
         extensions: [

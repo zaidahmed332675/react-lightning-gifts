@@ -3,9 +3,6 @@ import { compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createLogger } from 'redux-logger';
 
-// Module Dependencies
-import createErrorLoggerMiddleware from 'modules/error/middleware';
-
 /**
  * Filter out actions from the redux logger
  * @param  {object} state - Redux store state.
@@ -36,12 +33,6 @@ export const devTools = window.devToolsExtension ? window.devToolsExtension({
 export const reduxSagaMiddleware = createSagaMiddleware();
 
 /**
- * Error logger middleware
- * @type {function}
- */
-export const errorLoggerMiddleware = createErrorLoggerMiddleware();
-
-/**
  * Creates the middleware object to pass into redux.
  * @return {Object} An object containing all the middleware to load into redux.
  */
@@ -49,7 +40,6 @@ const getMiddleware = () =>
     compose(
         applyMiddleware(
             reduxSagaMiddleware,
-            errorLoggerMiddleware,
             createLogger({
                 predicate: filterActions
             })
