@@ -15,7 +15,7 @@ const { NODE_ENV } = process.env;
 const { Header, Content } = Layout;
 
 const App = () => (
-    <Layout className="layout" style={{ height: '100%', maxWidth: 1200, margin: '0px auto', background: 'white' }}>
+    <Layout className="layout">
         <Header style={{ background: 'white' }}>
             <Row>
                 <Col span={16}>

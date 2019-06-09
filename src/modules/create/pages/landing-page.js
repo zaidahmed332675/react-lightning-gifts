@@ -41,19 +41,21 @@ class LandingPage extends Component {
         return (
             <Row type="flex" align="middle" style={{ height: '100%' }}>
                 <Col xs={24} sm={{ span: 12 }}>
-                    <h1 style={{ marginBottom: 20 }} className="avenir banner-text">
-                        Bitcoin gifts, minus the fees
-                    </h1>
-                    <p style={{ marginBottom: 10, fontSize: 24 }}>
-                        Create fee-less Bitcoin gift cards to share with friends, family and your haters.
-                    </p>
-                    <p>
-                        Powered by Lightning network <Emoji label="lighting" symbol="⚡️"/>
-                    </p>
+                    <div style={{ marginBottom: 30 }}>
+                        <h1 style={{ marginBottom: 20 }} className="avenir banner-text">
+                            Bitcoin gifts, minus the fees
+                        </h1>
+                        <p style={{ marginBottom: 10, fontSize: 24 }}>
+                            Create fee-less Bitcoin gift cards to share with friends, family and your haters.
+                        </p>
+                        <p>
+                            Powered by Lightning network <Emoji label="lighting" symbol="⚡️" />
+                        </p>
+                    </div>
                 </Col>
                 <Col xs={24} sm={{ span: 8, offset: 4 }}>
                     <h2 style={{ marginBottom: 20, textAlign: 'center' }}>
-                        Create a bitcoin gift in 30 seconds <Emoji label="point-down" symbol="👇️"/>
+                        Create a bitcoin gift in 30 seconds <Emoji label="point-down" symbol="👇️" />
                     </h2>
                     <CreateBox />
                 </Col>

@@ -3,7 +3,7 @@ import { all } from 'redux-saga/effects';
 
 // Module Dependencies
 import appSagas from 'modules/app/sagas';
-// import userSagas from 'modules/user/sagas';
+import createSagas from 'modules/create/sagas';
 
 /**
  * Prepare all the sagas to be bootstrapped right before starting of the application
@@ -12,7 +12,7 @@ import appSagas from 'modules/app/sagas';
 function* rootSaga() {
     yield all([
         ...appSagas,
-        // ...userSagas
+        ...createSagas
     ]);
 }
 
