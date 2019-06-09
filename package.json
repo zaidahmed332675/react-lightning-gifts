@@ -21,6 +21,7 @@
     "axios": "^0.18.0",
     "lodash": "^4.4.2",
     "prop-types": "~15.6.1",
+    "qrcode.react": "^0.9.3",
     "react": "^16.6.3",
     "react-dom": "~16.3.2",
     "react-helmet": "^5.2.0",

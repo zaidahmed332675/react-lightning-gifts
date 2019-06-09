@@ -5,9 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
+import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, InputNumber, Spin } from 'antd';
+import { Button, Form, InputNumber, Spin, Icon, Input } from 'antd';
+
+// Util Dependencies
+import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
 import { createInvoiceSignal } from '../actions';
@@ -72,10 +76,19 @@ class CreateForm extends Component {
         }
 
         if (!_.isEmpty(invoiceStatus)) {
-            console.log('made it brah', invoiceStatus);
+            const { lightning_invoice: lightningInvoice, amount } = invoiceStatus;
 
+            console.log('invoiceStatus', invoiceStatus);
             return (
-                <div>nice</div>
+                <Fragment>
+                    <p>Pay Bolt-11 invoice with a Lightning compatible wallet to complete your gift card <Emoji label="point-down" symbol="👇️" /></p>
+                    <QRCode
+                        value={lightningInvoice.payreq}
+                        size={128}
+                    />
+                    <p><b>{amount} sats</b></p>
+                    <Input addonAfter={<Icon type="copy" />} defaultValue={lightningInvoice.payreq} />
+                </Fragment>
             );
         }
 
