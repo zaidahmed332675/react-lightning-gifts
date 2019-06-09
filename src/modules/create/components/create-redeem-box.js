@@ -10,7 +10,7 @@ import CreateForm from '../forms/create-form';
 
 class CreateRedeemBox extends Component {
     state = {
-        activeTab: 'create'
+        activeTab: 'basic'
     };
 
     onTabChange = (key) => {
@@ -21,18 +21,20 @@ class CreateRedeemBox extends Component {
         const { activeTab } = this.state;
 
         return (
-            <Card
-                style={{ width: '100%' }}
-                tabList={[{ key: 'create', tab: 'Create', }, { key: 'redeem', tab: 'Redeem' }]}
-                activeTabKey={activeTab}
-                onTabChange={key => this.onTabChange(key)}
-            >
-                {activeTab === 'create' ?
-                    <CreateForm />
-                    :
-                    <p>redeem content</p>
-                }
-            </Card>
+            <div style={{ width: '100%' }}>
+                <Card
+                    style={{ width: '100%' }}
+                    tabList={[{ key: 'basic', tab: 'Basic', }, { key: 'advanced', tab: 'Advanced' }]}
+                    activeTabKey={activeTab}
+                    onTabChange={key => this.onTabChange(key)}
+                >
+                    {activeTab === 'basic' ?
+                        <CreateForm />
+                        :
+                        <p>redeem content</p>
+                    }
+                </Card>
+            </div>
         );
     }
 }

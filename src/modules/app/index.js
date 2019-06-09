@@ -16,7 +16,7 @@ const { Header, Content } = Layout;
 
 const App = () => (
     <Layout className="layout" style={{ height: '100%', maxWidth: 1200, margin: '0px auto', background: 'white' }}>
-        <Header style={{ padding: '0px 40px', background: 'white' }}>
+        <Header style={{ background: 'white' }}>
             <Row>
                 <Col span={16}>
                     <span>Lightning in a box</span>
@@ -26,7 +26,7 @@ const App = () => (
                 </Col>
             </Row>
         </Header>
-        <Content style={{ height: '100%', padding: '0px 40px' }}>
+        <Content style={{ height: '100%' }}>
             <Router>
                 <RouterMap />
             </Router>

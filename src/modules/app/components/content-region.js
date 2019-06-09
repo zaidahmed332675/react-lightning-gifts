@@ -9,7 +9,7 @@ import ErrorBoundary from 'components/error-boundary';
  * Content Region Component
  */
 const ContentRegion = props => (
-    <div className="content-region">
+    <div>
         <ErrorBoundary>
             {props.children}
         </ErrorBoundary>

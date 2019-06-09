@@ -37,10 +37,12 @@ class LandingPage extends Component {
 
         return (
             <Row type="flex" align="middle" style={{ height: '100%' }}>
-                <Col sm={24} md={12}>
-                    <h1 style={{ marginBottom: 20 }} className="avenir banner-text">Bitcoin gifts, minus the fees</h1>
+                <Col xs={24} sm={{ span: 12 }}>
+                    <h1 style={{ marginBottom: 20 }} className="avenir banner-text">
+                        Bitcoin gifts, minus the fees
+                    </h1>
                 </Col>
-                <Col sm={24} md={{ span: 8, offset: 4 }} style={{ textAlign: 'center' }}>
+                <Col xs={24} sm={{ span: 8, offset: 4 }}>
                     <CreateRedeemBox />
                 </Col>
             </Row>
