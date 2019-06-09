@@ -1,56 +1,6 @@
 // Import third party ui library css
 @import '~antd/dist/antd.css';
 
-//.ant-layout-header {
-//    background: #F5F5F5;
-//}
-
-//.ant-row-flex {
-//    flex-grow: 1;
-//}
-//
-//.ant-menu-inline > .ant-menu-item {
-//    line-height: 45px;
-//    height: 45px;
-//}
-//
-//.ant-menu-inline-collapsed > .ant-menu-item .anticon {
-//    font-size: 18px;
-//    line-height: 45px;
-//}
-//
-//.ant-form-item-control {
-//    line-height: 1.5;
-//}
-//
-//.ant-divider-horizontal.ant-divider-with-text-left {
-//    &:before, &:after {
-//        border-top: 1px solid #cecece;
-//    }
-//}
-//
-//.ant-popover-inner {
-//    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20);
-//}
-
-//.ant-form legend {
-//    margin: 10px 0 15px;
-//    padding-bottom: 5px;
-//    border-bottom: 1px solid #cecece;
-//    color: #1890ff;
-//}
-//
-//.ant-menu-inline-collapsed {
-//    width: 64px
-//}
-//
-//.ant-menu-inline-collapsed > .ant-menu-item,
-//.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
-//.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
-//    padding: 0 !important;
-//    text-align: center;
-//}
-
 .scale-to-parent {
     width: 100%;
 }
@@ -68,6 +18,15 @@
     font-size: 68px;
     font-weight: 600;
     line-height: 76px;
+}
+
+.create-box {
+    .ant-card-head {
+        text-align: center;
+    }
+    .ant-card-body {
+        height: 100%;
+    }
 }
 
 h1 {

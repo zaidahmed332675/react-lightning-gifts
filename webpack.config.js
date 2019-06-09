@@ -132,7 +132,7 @@ module.exports = {
             public: path.resolve(__dirname, 'public'),
             config: path.resolve(__dirname, 'src/config'),
             lib: path.resolve(__dirname, 'src/lib'),
-            components: path.resolve(__dirname, 'src/components'),
+            utils: path.resolve(__dirname, 'src/utils'),
             modules: path.resolve(__dirname, 'src/modules')
         }
     }

@@ -1,5 +1,5 @@
 // NPM Dependencies
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -57,18 +57,21 @@ class CreateForm extends Component {
         }
 
         return (
-            <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark>
-                <Form.Item>
-                    {getFieldDecorator('amount', {
-                        rules: [{ required: true, message: 'Gift amount required' }]
-                    })(<Input placeholder="Gift amount (sats)" />)}
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Create
-                    </Button>
-                </Form.Item>
-            </Form>
+            <Fragment>
+                <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark style={{ textAlign: 'center' }}>
+                    <Form.Item>
+                        {getFieldDecorator('amount', {
+                            rules: [{ required: true, message: 'Gift amount required' }]
+                        })(<Input placeholder="Gift amount (sats)" />)}
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" size="large" style={{ width: '100%' }} htmlType="submit">
+                            Create
+                        </Button>
+                    </Form.Item>
+                </Form>
+                <small>A Bolt-11 invoice will be generated</small>
+            </Fragment>
         );
     }
 }

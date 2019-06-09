@@ -8,8 +8,11 @@ import { withRouter } from 'react-router-dom';
 // UI Dependencies
 import { Spin, Form, Row, Col } from 'antd';
 
+// Util Dependencies
+import Emoji from 'utils/components/emoji';
+
 // Local Dependencies
-import CreateRedeemBox from '../components/create-redeem-box';
+import CreateBox from '../components/create-box';
 
 class LandingPage extends Component {
     static propTypes = {
@@ -41,9 +44,18 @@ class LandingPage extends Component {
                     <h1 style={{ marginBottom: 20 }} className="avenir banner-text">
                         Bitcoin gifts, minus the fees
                     </h1>
+                    <p style={{ marginBottom: 10, fontSize: 24 }}>
+                        Create fee-less Bitcoin gift cards to share with friends, family and your haters.
+                    </p>
+                    <p>
+                        Powered by Lightning network <Emoji label="lighting" symbol="⚡️"/>
+                    </p>
                 </Col>
                 <Col xs={24} sm={{ span: 8, offset: 4 }}>
-                    <CreateRedeemBox />
+                    <h2 style={{ marginBottom: 20, textAlign: 'center' }}>
+                        Create a bitcoin gift in 30 seconds <Emoji label="point-down" symbol="👇️"/>
+                    </h2>
+                    <CreateBox />
                 </Col>
             </Row>
         );
