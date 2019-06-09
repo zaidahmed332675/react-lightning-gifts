@@ -1,19 +1,29 @@
 // NPM Dependencies
-import { fork, takeLatest, put, call } from 'redux-saga/effects';
+import { fork, takeLatest, put, call, race, take } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 // Local Dependencies
-import { createVoucher } from './services';
-import { createInvoiceSignal, replaceInvoiceStatus } from './actions';
+import { createInvoice, getInvoiceStatus } from './services';
+import {
+    createInvoiceSignal,
+    replaceInvoiceStatus,
+    updateInvoicePaymentStatus,
+    checkInvoiceStatusSignal,
+    startRealTimeCheckInvoiceStatusSignal,
+    stopRealTimeCheckInvoiceStatusSignal
+} from './actions';
 
 export function* createInvoiceOnRequest({ payload }) {
     try {
         const { amount } = payload;
 
-        const invoice = yield call(createVoucher, amount);
+        const invoice = yield call(createInvoice, amount);
 
         yield put(replaceInvoiceStatus(invoice));
 
         yield put(createInvoiceSignal.success(invoice));
+
+        yield put(startRealTimeCheckInvoiceStatusSignal.request({ chargeId: invoice.chargeId }));
     } catch (error) {
         yield put(createInvoiceSignal.failure({ error }));
     }
@@ -26,6 +36,58 @@ export function* watchCreateInvoiceSignal() {
     );
 }
 
+export function* checkInvoiceStatusOnRequest({ payload }) {
+    try {
+        const { chargeId } = payload;
+
+        const invoiceStatus = yield call(getInvoiceStatus, chargeId);
+
+        yield put(replaceInvoiceStatus(invoiceStatus));
+
+        yield put(checkInvoiceStatusSignal.success(invoiceStatus));
+    } catch (error) {
+        yield put(checkInvoiceStatusSignal.failure({ error }));
+    }
+}
+
+export function* watchCheckInvoiceStatusSignal() {
+    yield takeLatest(
+        checkInvoiceStatusSignal.REQUEST,
+        checkInvoiceStatusOnRequest
+    );
+}
+
+export function* startRealTimeCheckInvoiceStatusOnRequest({ payload }) {
+    while (true) {
+        const { chargeId } = payload;
+
+        try {
+            const invoiceStatus = yield call(getInvoiceStatus, chargeId);
+
+            yield put(updateInvoicePaymentStatus(invoiceStatus));
+
+            yield call(delay, 5000);
+        } catch (error) {
+            yield put(startRealTimeCheckInvoiceStatusSignal.failure({ error }));
+
+            yield call(delay, 15000);
+        }
+    }
+}
+
+export function* watchStartRealTimeCheckInvoiceStatusSignal() {
+    while (true) {
+        const payload = yield take(startRealTimeCheckInvoiceStatusSignal.REQUEST);
+
+        yield race([
+            call(startRealTimeCheckInvoiceStatusOnRequest, payload),
+            take(stopRealTimeCheckInvoiceStatusSignal.REQUEST)
+        ]);
+    }
+}
+
 export default [
-    fork(watchCreateInvoiceSignal)
+    fork(watchCreateInvoiceSignal),
+    fork(watchCheckInvoiceStatusSignal),
+    fork(watchStartRealTimeCheckInvoiceStatusSignal)
 ];

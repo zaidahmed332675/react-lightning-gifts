@@ -14,7 +14,7 @@ import { Button, Form, InputNumber, Spin, Icon, Input } from 'antd';
 import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
-import { createInvoiceSignal } from '../actions';
+import { createInvoiceSignal, stopRealTimeCheckInvoiceStatusSignal } from '../actions';
 
 class CreateForm extends Component {
     static propTypes = {
@@ -24,7 +24,8 @@ class CreateForm extends Component {
         }).isRequired,
         // history: PropTypes.object.isRequired,
         invoiceStatus: PropTypes.object.isRequired,
-        createInvoice: PropTypes.func.isRequired
+        createInvoice: PropTypes.func.isRequired,
+        stopRealTimeCheckInvoiceStatus: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -34,6 +35,12 @@ class CreateForm extends Component {
             loading: false
         };
     }
+
+    componentWillUnmount = () => {
+        const { stopRealTimeCheckInvoiceStatus } = this.props;
+
+        stopRealTimeCheckInvoiceStatus();
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -78,7 +85,6 @@ class CreateForm extends Component {
         if (!_.isEmpty(invoiceStatus)) {
             const { lightning_invoice: lightningInvoice, amount } = invoiceStatus;
 
-            console.log('invoiceStatus', invoiceStatus);
             return (
                 <Fragment>
                     <p>Pay Bolt-11 invoice with a Lightning compatible wallet to complete your gift card <Emoji label="point-down" symbol="👇️" /></p>
@@ -87,7 +93,7 @@ class CreateForm extends Component {
                         size={128}
                     />
                     <p><b>{amount} sats</b></p>
-                    <Input addonAfter={<Icon type="copy" />} defaultValue={lightningInvoice.payreq} />
+                    <Input addonAfter={<Icon type="copy" />} value={lightningInvoice.payreq} />
                 </Fragment>
             );
         }
@@ -129,7 +135,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        createInvoice: createInvoiceSignal.request
+        createInvoice: createInvoiceSignal.request,
+        stopRealTimeCheckInvoiceStatus: stopRealTimeCheckInvoiceStatusSignal.request
     }, dispatch);
 
 
