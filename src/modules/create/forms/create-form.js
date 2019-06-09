@@ -8,14 +8,17 @@ import { withRouter } from 'react-router-dom';
 // UI Dependencies
 import { Button, Form, Input, Spin } from 'antd';
 
+// Local Dependencies
+import { createInvoiceSignal } from '../actions';
+
 class CreateForm extends Component {
     static propTypes = {
         form: PropTypes.shape({
             getFieldDecorator: PropTypes.func.isRequired,
             validateFields: PropTypes.func.isRequired
         }).isRequired,
-        history: PropTypes.object.isRequired
-        // createProject: PropTypes.func.isRequired
+        // history: PropTypes.object.isRequired,
+        createInvoice: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -86,7 +89,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        // createProject: createProjectSignal.request
+        createInvoice: createInvoiceSignal.request
     }, dispatch);
 
 

@@ -1,6 +1,6 @@
 // NPM Dependencies
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 // UI Dependencies
 import { Card, Col, Row } from 'antd';
@@ -24,7 +24,7 @@ class CreateBox extends Component {
             <Card
                 className="create-box"
                 style={{ width: '100%' }}
-                tabList={[{ key: 'basic', tab: 'Basic', }, { key: 'advanced', tab: 'Advanced' }]}
+                tabList={[{ key: 'basic', tab: 'Basic' }, { key: 'advanced', tab: 'Advanced' }]}
                 activeTabKey={activeTab}
                 onTabChange={key => this.onTabChange(key)}
             >

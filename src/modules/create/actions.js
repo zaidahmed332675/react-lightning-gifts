@@ -1,7 +1,7 @@
 // Lib Dependencies
 import {
-    // createActionCreator,
-    // createDeltaAction,
+    createActionCreator,
+    createDeltaAction,
     createSignalAction
 } from 'lib/redux';
 
@@ -10,7 +10,7 @@ export const MODULE_NAME = 'CREATE';
 
 // Action Types
 export const CREATE_INVOICE = 'CREATE_INVOICE';
-export const REPLACE_INVOICE_STATUS = 'REPLACE_INVOICE';
+export const REPLACE_INVOICE_STATUS = 'REPLACE_INVOICE_STATUS';
 // export const CREATE_PROJECT = 'CREATE_PROJECT';
 
 // Signals
