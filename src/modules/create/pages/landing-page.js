@@ -55,7 +55,7 @@ class LandingPage extends Component {
                 </Col>
                 <Col xs={24} sm={{ span: 8, offset: 4 }}>
                     <h2 style={{ marginBottom: 20, textAlign: 'center' }}>
-                        Create a bitcoin gift in 30 seconds <Emoji label="point-down" symbol="👇️" />
+                        Create a Bitcoin gift in 30 seconds <Emoji label="point-down" symbol="👇️" />
                     </h2>
                     <CreateBox />
                 </Col>

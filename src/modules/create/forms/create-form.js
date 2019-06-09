@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
 
 // UI Dependencies
-import { Button, Form, Input, Spin } from 'antd';
+import { Button, Form, InputNumber, Spin } from 'antd';
 
 // Local Dependencies
 import { createInvoiceSignal } from '../actions';
@@ -18,6 +19,7 @@ class CreateForm extends Component {
             validateFields: PropTypes.func.isRequired
         }).isRequired,
         // history: PropTypes.object.isRequired,
+        invoiceStatus: PropTypes.object.isRequired,
         createInvoice: PropTypes.func.isRequired
     };
 
@@ -31,31 +33,49 @@ class CreateForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // const { form, history } = this.props;
+        const { form, createInvoice } = this.props;
 
-        // form.validateFields((err, values) => {
-        //     if (!err) {
-        //         const { repoUrl } = values;
-        //         let path = url.parse(repoUrl).pathname;
-        //
-        //         if (_.endsWith(path, '/')) {
-        //             path = path.slice(0, -1);
-        //         }
-        //
-        //         createProject({ path }, { history });
-        //     }
-        // });
+        form.validateFields((err, values) => {
+            if (!err) {
+                const { amount } = values;
+
+                createInvoice({ amount });
+            }
+        });
+    };
+
+    validateAmount = (rule, value, callback) => {
+        if (!_.isNumber(value)) {
+            callback('Please enter numbers only');
+        } else if (value < 1) {
+            callback('Negative values not supported');
+        } else if (value % 1 !== 0) {
+            callback('Decimals not supported');
+        } else if (value > 100000) {
+            callback('Only gifts under 100,000 sats supported in beta');
+        } else {
+            callback();
+        }
     };
 
     render() {
         const { loading } = this.state;
+        const { invoiceStatus } = this.props;
         const { getFieldDecorator } = this.props.form;
 
         if (loading) {
             return (
                 <div style={{ textAlign: 'center' }}>
-                    <Spin tip="loading..." size="large" style={{ marginTop: '200px' }} />
+                    <Spin tip="loading..." size="large" />
                 </div>
+            );
+        }
+
+        if (!_.isEmpty(invoiceStatus)) {
+            console.log('made it brah', invoiceStatus);
+
+            return (
+                <div>nice</div>
             );
         }
 
@@ -64,10 +84,18 @@ class CreateForm extends Component {
                 <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark style={{ textAlign: 'center' }}>
                     <Form.Item>
                         {getFieldDecorator('amount', {
-                            rules: [{ required: true, message: 'Gift amount required' }]
-                        })(<Input placeholder="Gift amount (sats)" />)}
+                            rules: [{ validator: this.validateAmount }]
+                        })(
+                            <InputNumber
+                                style={{ width: '100%' }}
+                                placeholder="Gift amount (satoshi)"
+                                size="large"
+                                addonAfter="sats"
+                                min={1}
+                            />
+                        )}
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item style={{ marginBottom: 0 }}>
                         <Button type="primary" size="large" style={{ width: '100%' }} htmlType="submit">
                             Create
                         </Button>
@@ -81,9 +109,8 @@ class CreateForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ...state
-        // droneOnline: state.cockpit.droneOnline,
-        // cockpitLoading: state.cockpit.cockpitLoading
+        ...state,
+        invoiceStatus: state.create.invoiceStatus
     };
 };
 

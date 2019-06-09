@@ -33,7 +33,7 @@ class CreateBox extends Component {
                         {activeTab === 'basic' ?
                             <CreateForm />
                             :
-                            <p>redeem content</p>
+                            <p>Coming soon!</p>
                         }
                     </Col>
                 </Row>
