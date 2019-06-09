@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
 import QRCode from 'qrcode.react';
 
@@ -83,7 +83,20 @@ class CreateForm extends Component {
         }
 
         if (!_.isEmpty(invoiceStatus)) {
-            const { lightning_invoice: lightningInvoice, amount } = invoiceStatus;
+            const {
+                lightning_invoice: lightningInvoice, amount, status, order_id: orderId
+            } = invoiceStatus;
+
+            if (status === 'paid') {
+                return (
+                    <Fragment>
+                        <p><Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" /></p>
+                        <p>
+                            <Link to={`redeem/${orderId}`}>View your redeemable Bitcoin gift</Link>
+                        </p>
+                    </Fragment>
+                );
+            }
 
             return (
                 <Fragment>

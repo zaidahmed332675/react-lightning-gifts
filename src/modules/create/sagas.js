@@ -66,6 +66,10 @@ export function* startRealTimeCheckInvoiceStatusOnRequest({ payload }) {
 
             yield put(updateInvoicePaymentStatus(invoiceStatus));
 
+            if (invoiceStatus.status === 'paid') {
+                yield put(stopRealTimeCheckInvoiceStatusSignal.request());
+            }
+
             yield call(delay, 5000);
         } catch (error) {
             yield put(startRealTimeCheckInvoiceStatusSignal.failure({ error }));
