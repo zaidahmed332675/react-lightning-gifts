@@ -30,7 +30,7 @@ class LandingPage extends Component {
                             Create fee-less Bitcoin gift cards to share with friends, family and your haters.
                         </p>
                         <p>
-                            Powered by Lightning network <Emoji label="lighting" symbol="⚡️" />
+                            Powered by Lightning Network <Emoji label="lighting" symbol="⚡️" />
                         </p>
                     </div>
                 </Col>

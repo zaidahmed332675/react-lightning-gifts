@@ -13,8 +13,7 @@
     "start": "NODE_ENV=test webpack-dev-server --open --history-api-fallback",
     "build:dev": "NODE_ENV=dev webpack --config webpack.config.js",
     "build:prod": "NODE_ENV=prod webpack --config webpack.config.js",
-    "deploy:dev": "yarn run build:dev && firebase deploy --only hosting:dev",
-    "deploy:prod": "yarn run build:prod && firebase deploy --only hosting:prod"
+    "deploy:prod": "yarn run build:prod && firebase deploy"
   },
   "dependencies": {
     "antd": "^3.11.1",

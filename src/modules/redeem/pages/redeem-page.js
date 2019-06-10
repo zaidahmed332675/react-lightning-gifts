@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 // UI Dependencies
 import { Spin, Row, Col } from 'antd';
@@ -31,7 +32,7 @@ class RedeemPage extends Component {
 
     componentDidMount = () => {
         const { match, getGiftDetails } = this.props;
-        const orderId = Number(match.params.id);
+        const orderId = match.params.id;
 
         getGiftDetails({ orderId });
     };
@@ -62,9 +63,18 @@ class RedeemPage extends Component {
         return (
             <Row type="flex" align="middle" style={{ height: '100%' }}>
                 <Col span={24}>
-                    <h1 style={{ marginBottom: 20 }} className="avenir banner-text">
-                        A gift from Satoshi, to you
+                    <h1 style={{ marginBottom: 40, textAlign: 'center' }} className="avenir banner-text">
+                        A gift from Satoshi,
+                        <br />
+                        to you
                     </h1>
+                    <p style={{ marginBottom: 10, textAlign: 'center' }}>
+                        Someone (Satoshi?) has given you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
+                        <br />
+                        to redeem, create a 0 sat invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a> or other
+                        <br />
+                         compatible Lightning Network wallets, and paste below <Emoji label="point-down" symbol="👇️" />
+                    </p>
                 </Col>
             </Row>
         );
