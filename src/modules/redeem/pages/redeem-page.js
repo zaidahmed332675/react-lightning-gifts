@@ -1,5 +1,5 @@
 // NPM Dependencies
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -29,7 +29,7 @@ class RedeemPage extends Component {
         super(props);
 
         this.state = {
-            loading: false
+            loading: true
         };
     }
 
@@ -40,9 +40,19 @@ class RedeemPage extends Component {
         getGiftDetails({ orderId });
     };
 
+    componentDidUpdate = (prevProps) => {
+        const { giftDetails } = this.props;
+
+        if (giftDetails !== prevProps.giftDetails) {
+            this.setState({
+                loading: false
+            });
+        }
+    };
+
     render() {
         const { loading } = this.state;
-        const { giftDetails, match } = this.props;
+        const { giftDetails } = this.props;
 
         if (loading || giftDetails === 'notFound') {
             return (
@@ -55,7 +65,7 @@ class RedeemPage extends Component {
                                     size="large"
                                 />
                                 :
-                                <p>{`Gift with ID '${match.params.id}' not found`}</p>
+                                <p>Gift  not found</p>
                             }
                         </div>
                     </Col>
@@ -72,9 +82,9 @@ class RedeemPage extends Component {
                         to you
                     </h1>
                     <p style={{ marginBottom: 40, textAlign: 'center' }}>
-                        Someone (Satoshi?) has given you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
+                        Someone (Satoshi?) has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
                         <br />
-                        to redeem, create a 0 sat invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a> or other
+                        to redeem, create a 0 sat Lightning Network invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a> or other
                         <br />
                         compatible Lightning Network wallets, and paste below <Emoji label="point-down" symbol="👇️" />
                     </p>

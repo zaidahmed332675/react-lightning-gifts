@@ -30,13 +30,15 @@ export function* watchGetGiftDetailsSignal() {
 
 export function* redeemGiftOnRequest({ payload }) {
     try {
-        const { orderId, address } = payload;
+        const { orderId, invoice } = payload;
 
-        const redeemGiftStatus = yield call(redeemGift, { orderId, address });
+        const redeemGiftStatus = yield call(redeemGift, { orderId, invoice });
 
         yield put(replaceGiftDetails(redeemGiftStatus));
 
         yield put(redeemGiftSignal.success(redeemGiftStatus));
+
+        yield put(getGiftDetailsSignal.request({ orderId }));
     } catch (error) {
         yield put(redeemGiftSignal.failure({ error }));
     }

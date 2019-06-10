@@ -12,6 +12,7 @@ import { Button, Form, Spin, Input } from 'antd';
 
 // Local Dependencies
 import { redeemGiftSignal } from '../actions';
+import Emoji from 'utils/components/emoji';
 
 class RedeemForm extends Component {
     static propTypes = {
@@ -20,7 +21,7 @@ class RedeemForm extends Component {
             validateFields: PropTypes.func.isRequired
         }).isRequired,
         redeemGift: PropTypes.func.isRequired,
-        giftDetails: PropTypes.object
+        giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     };
 
     static defaultProps = {
@@ -35,23 +36,26 @@ class RedeemForm extends Component {
         };
     }
 
-    // componentDidUpdate = (prevProps) => {
-    //     if (this.props.invoiceStatus !== prevProps.invoiceStatus) {
-    //         this.setState({
-    //             loading: false
-    //         });
-    //     }
-    // };
+    componentDidUpdate = (prevProps) => {
+        if (this.props.giftDetails !== prevProps.giftDetails) {
+            this.setState({
+                loading: false
+            });
+        }
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { form, redeemGift, giftDetails } = this.props;
+        const {
+            form, redeemGift, giftDetails
+        } = this.props;
+        const { orderId } = giftDetails;
 
         form.validateFields((err, values) => {
             if (!err) {
-                const { address } = values;
+                const { invoice } = values;
 
-                redeemGift({ address, orderId: giftDetails.orderId });
+                redeemGift({ invoice, orderId });
 
                 this.setState({
                     loading: true
@@ -72,11 +76,16 @@ class RedeemForm extends Component {
     render() {
         const { loading } = this.state;
         const { getFieldDecorator } = this.props.form;
+        const { giftDetails } = this.props;
 
-        if (loading) {
+        if (loading || giftDetails.spent) {
             return (
                 <div style={{ textAlign: 'center' }}>
-                    <Spin tip="loading..." size="large" />
+                    {loading ?
+                        <Spin tip="loading..." size="large" />
+                        :
+                        <p>Your gift has been redeemed! <Emoji label="confeti" symbol="🎉" /></p>
+                    }
                 </div>
             );
         }
@@ -85,7 +94,7 @@ class RedeemForm extends Component {
             <Fragment>
                 <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark style={{ textAlign: 'center' }}>
                     <Form.Item>
-                        {getFieldDecorator('address', {
+                        {getFieldDecorator('invoice', {
                             rules: [{ validator: this.validateAmount }]
                         })(
                             <Input
