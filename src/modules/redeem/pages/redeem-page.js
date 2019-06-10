@@ -1,5 +1,5 @@
 // NPM Dependencies
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,13 +13,17 @@ import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
 import { getGiftDetailsSignal } from '../actions';
-// import CreateBox from '../components/create-box';
+import RedeemForm from '../forms/redeem-form';
 
 class RedeemPage extends Component {
     static propTypes = {
         match: PropTypes.object.isRequired,
         getGiftDetails: PropTypes.func.isRequired,
-        giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
+        giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    };
+
+    static defaultProps = {
+        giftDetails: null
     };
 
     constructor(props) {
@@ -61,22 +65,29 @@ class RedeemPage extends Component {
         }
 
         return (
-            <Row type="flex" align="middle" style={{ height: '100%' }}>
-                <Col span={24}>
-                    <h1 style={{ marginBottom: 40, textAlign: 'center' }} className="avenir banner-text">
-                        A gift from Satoshi,
-                        <br />
-                        to you
-                    </h1>
-                    <p style={{ marginBottom: 10, textAlign: 'center' }}>
-                        Someone (Satoshi?) has given you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
-                        <br />
-                        to redeem, create a 0 sat invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a> or other
-                        <br />
-                         compatible Lightning Network wallets, and paste below <Emoji label="point-down" symbol="👇️" />
-                    </p>
-                </Col>
-            </Row>
+            <Fragment>
+                <Row type="flex" align="middle" style={{ height: '100%' }}>
+                    <Col span={24}>
+                        <h1 style={{ marginBottom: 40, textAlign: 'center' }} className="avenir banner-text">
+                            A gift from Satoshi,
+                            <br />
+                            to you
+                        </h1>
+                        <p style={{ marginBottom: 10, textAlign: 'center' }}>
+                            Someone (Satoshi?) has given you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
+                            <br />
+                            to redeem, create a 0 sat invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a> or other
+                            <br />
+                            compatible Lightning Network wallets, and paste below <Emoji label="point-down" symbol="👇️" />
+                        </p>
+                    </Col>
+                </Row>
+                <Row type="flex" align="middle" style={{ height: '100%' }}>
+                    <Col span={24}>
+                        <RedeemForm giftDetails={giftDetails} />
+                    </Col>
+                </Row>
+            </Fragment>
         );
     }
 }
