@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 // Module Dependencies
 import NotFoundPage from 'modules/error/pages/not-found';
 import LandingPage from 'modules/create/pages/landing-page';
+import RedeemPage from 'modules/redeem/pages/redeem-page';
 
 /**
  * RouterMap
@@ -12,6 +13,7 @@ import LandingPage from 'modules/create/pages/landing-page';
 const RouterMap = () => (
     <Switch>
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/redeem/:id" component={RedeemPage} />
         <Route component={NotFoundPage} />
     </Switch>
 );

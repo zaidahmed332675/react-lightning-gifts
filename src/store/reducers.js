@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 // Module Dependencies
 import applicationReducer from 'modules/app/reducer';
 import createReducer from 'modules/create/reducer';
+import redeemReducer from 'modules/redeem/reducer';
 
 /**
  * Mapping of all reducers within the application.
@@ -11,7 +12,8 @@ import createReducer from 'modules/create/reducer';
  */
 const reducers = {
     application: applicationReducer,
-    create: createReducer
+    create: createReducer,
+    redeem: redeemReducer
 };
 
 /**

@@ -36,6 +36,14 @@ class CreateForm extends Component {
         };
     }
 
+    componentDidUpdate = (prevProps) => {
+        if (this.props.invoiceStatus !== prevProps.invoiceStatus) {
+            this.setState({
+                loading: false
+            });
+        }
+    };
+
     componentWillUnmount = () => {
         const { stopRealTimeCheckInvoiceStatus } = this.props;
 
@@ -51,6 +59,10 @@ class CreateForm extends Component {
                 const { amount } = values;
 
                 createInvoice({ amount });
+
+                this.setState({
+                    loading: true
+                });
             }
         });
     };
