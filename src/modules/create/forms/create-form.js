@@ -8,13 +8,15 @@ import _ from 'lodash';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, InputNumber, Spin, Icon, Input } from 'antd';
+import { Button, Form, InputNumber, Spin, Icon, Input, Typography } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
-import { createInvoiceSignal, stopRealTimeCheckInvoiceStatusSignal } from '../actions';
+import { createInvoiceSignal } from '../actions';
+
+const { Paragraph } = Typography;
 
 class CreateForm extends Component {
     static propTypes = {
@@ -24,8 +26,7 @@ class CreateForm extends Component {
         }).isRequired,
         // history: PropTypes.object.isRequired,
         invoiceStatus: PropTypes.object.isRequired,
-        createInvoice: PropTypes.func.isRequired,
-        stopRealTimeCheckInvoiceStatus: PropTypes.func.isRequired
+        createInvoice: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -42,12 +43,6 @@ class CreateForm extends Component {
                 loading: false
             });
         }
-    };
-
-    componentWillUnmount = () => {
-        const { stopRealTimeCheckInvoiceStatus } = this.props;
-
-        stopRealTimeCheckInvoiceStatus();
     };
 
     handleSubmit = (e) => {
@@ -96,15 +91,20 @@ class CreateForm extends Component {
 
         if (!_.isEmpty(invoiceStatus)) {
             const {
-                lightning_invoice: lightningInvoice, amount, status, orderId
+                lightning_invoice: lightningInvoice, status, orderId
             } = invoiceStatus;
 
             if (status === 'paid') {
                 return (
                     <Fragment>
                         <p><Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" /></p>
+                        <p><Link to={`redeem/${orderId}`}>View your redeemable Bitcoin gift</Link></p>
                         <p>
-                            <Link to={`redeem/${orderId}`}>View your redeemable Bitcoin gift</Link>
+                            <Paragraph
+                                copyable={{ text: `lightning-in-a-box.firebaseapp.com/redeem/${orderId}` }}
+                            >
+                                Copy link
+                            </Paragraph>
                         </p>
                     </Fragment>
                 );
@@ -112,12 +112,12 @@ class CreateForm extends Component {
 
             return (
                 <Fragment>
-                    <p>Pay Bolt-11 invoice with a Lightning compatible wallet to complete your gift card <Emoji label="point-down" symbol="👇️" /></p>
+                    <p>Pay invoice with a Lightning compatible wallet to complete your gift card</p>
                     <QRCode
                         value={lightningInvoice.payreq}
                         size={128}
+                        style={{ marginBottom: 12 }}
                     />
-                    <p><b>{amount} sats</b></p>
                     <Input addonAfter={<Icon type="copy" />} value={lightningInvoice.payreq} />
                 </Fragment>
             );
@@ -145,7 +145,7 @@ class CreateForm extends Component {
                         </Button>
                     </Form.Item>
                 </Form>
-                <small>A Bolt-11 invoice will be generated</small>
+                <small>A Lightning invoice will be generated</small>
             </Fragment>
         );
     }
@@ -160,8 +160,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        createInvoice: createInvoiceSignal.request,
-        stopRealTimeCheckInvoiceStatus: stopRealTimeCheckInvoiceStatusSignal.request
+        createInvoice: createInvoiceSignal.request
     }, dispatch);
 
 

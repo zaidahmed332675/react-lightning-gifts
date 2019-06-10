@@ -1,5 +1,5 @@
 // NPM Dependencies
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 // import PropTypes from 'prop-types';
 
 // UI Dependencies
@@ -33,7 +33,15 @@ class CreateBox extends Component {
                         {activeTab === 'basic' ?
                             <CreateForm />
                             :
-                            <p>Coming soon!</p>
+                            <Fragment>
+                                <p>Advanced features!</p>
+                                <ul style={{ textAlign: 'left' }}>
+                                    <li>Customizable gift pages, messages, and more</li>
+                                    <li>Batch gift generation API</li>
+                                    <li>Notify recipient by email</li>
+                                </ul>
+                                <p>Coming soon!</p>
+                            </Fragment>
                         }
                     </Col>
                 </Row>
