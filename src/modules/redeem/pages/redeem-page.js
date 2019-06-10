@@ -84,7 +84,7 @@ class RedeemPage extends Component {
                     <p style={{ marginBottom: 40, textAlign: 'center' }}>
                         Someone (Satoshi?) has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
                         <br />
-                        to redeem, create a 0 sat Lightning Network invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a> or other
+                        to redeem, create a 0 sat Lightning Network invoice using <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a> or other
                         <br />
                         compatible Lightning Network wallets, and paste below <Emoji label="point-down" symbol="👇️" />
                     </p>

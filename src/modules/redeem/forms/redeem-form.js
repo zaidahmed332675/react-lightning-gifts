@@ -3,16 +3,16 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
 // UI Dependencies
 import { Button, Form, Spin, Input } from 'antd';
 
 // Util Dependencies
-// import Emoji from 'utils/components/emoji';
+import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
 import { redeemGiftSignal } from '../actions';
-import Emoji from 'utils/components/emoji';
 
 class RedeemForm extends Component {
     static propTypes = {
@@ -65,12 +65,11 @@ class RedeemForm extends Component {
     };
 
     validateInvoice = (rule, value, callback) => {
-        // if (!_.isNumber(value)) {
-        //     callback('Please enter numbers only');
-        // } else {
-        //     callback();
-        // }
-        callback();
+        if (!_.startsWith(value, 'lnbc1pw0')) {
+            callback('Only 0 sat Lightning invoices accepted');
+        } else {
+            callback();
+        }
     };
 
     render() {
@@ -95,7 +94,7 @@ class RedeemForm extends Component {
                 <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark style={{ textAlign: 'center' }}>
                     <Form.Item>
                         {getFieldDecorator('invoice', {
-                            rules: [{ validator: this.validateAmount }]
+                            rules: [{ validator: this.validateInvoice }]
                         })(
                             <Input
                                 style={{ width: '100%' }}
