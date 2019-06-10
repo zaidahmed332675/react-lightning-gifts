@@ -3,10 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 
 // UI Dependencies
-import { Spin, Form, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -16,28 +15,10 @@ import CreateBox from '../components/create-box';
 
 class LandingPage extends Component {
     static propTypes = {
-
+        // match: PropTypes.object.isRequired
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false
-        };
-    }
-
     render() {
-        const { loading } = this.state;
-
-        if (loading) {
-            return (
-                <div style={{ textAlign: 'center' }}>
-                    <Spin tip="loading..." size="large" style={{ marginTop: '200px' }} />
-                </div>
-            );
-        }
-
         return (
             <Row type="flex" align="middle" style={{ height: '100%' }}>
                 <Col xs={24} sm={{ span: 12 }}>
@@ -77,6 +58,4 @@ const mapDispatchToProps = dispatch =>
         // createProject: createProjectSignal.request
     }, dispatch);
 
-const WrappedLandingPage = Form.create()(LandingPage);
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WrappedLandingPage));
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
