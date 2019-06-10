@@ -11,7 +11,6 @@ import { Layout, Row, Col } from 'antd';
 import './core.styles.scss';
 import RouterMap from './router';
 
-const { NODE_ENV } = process.env;
 const { Header, Content } = Layout;
 
 const App = () => (
@@ -22,7 +21,7 @@ const App = () => (
                     <span>Lightning in a box</span>
                 </Col>
                 <Col span={8} style={{ textAlign: 'right' }}>
-                    <span>{NODE_ENV}</span>
+                    {/* <span>{NODE_ENV}</span> */}
                 </Col>
             </Row>
         </Header>

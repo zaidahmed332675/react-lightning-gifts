@@ -13,7 +13,7 @@ import RedeemPage from 'modules/redeem/pages/redeem-page';
 const RouterMap = () => (
     <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route exact path="/redeem/:id" component={RedeemPage} />
+        <Route path="/redeem/:id" component={RedeemPage} />
         <Route component={NotFoundPage} />
     </Switch>
 );

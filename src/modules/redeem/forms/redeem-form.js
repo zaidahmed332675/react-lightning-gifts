@@ -3,15 +3,12 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
-import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, Spin, Icon, Input } from 'antd';
+import { Button, Form, Spin, Input } from 'antd';
 
 // Util Dependencies
-import Emoji from 'utils/components/emoji';
+// import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
 import { redeemGiftSignal } from '../actions';
@@ -23,7 +20,11 @@ class RedeemForm extends Component {
             validateFields: PropTypes.func.isRequired
         }).isRequired,
         redeemGift: PropTypes.func.isRequired,
-        giftDetails: PropTypes.object.isRequired
+        giftDetails: PropTypes.object
+    };
+
+    static defaultProps = {
+        giftDetails: null
     };
 
     constructor(props) {
@@ -84,15 +85,13 @@ class RedeemForm extends Component {
             <Fragment>
                 <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark style={{ textAlign: 'center' }}>
                     <Form.Item>
-                        {getFieldDecorator('amount', {
+                        {getFieldDecorator('address', {
                             rules: [{ validator: this.validateAmount }]
                         })(
                             <Input
                                 style={{ width: '100%' }}
-                                placeholder="Gift amount (satoshi)"
+                                placeholder="lnbc..."
                                 size="large"
-                                addonAfter="sats"
-                                min={1}
                             />
                         )}
                     </Form.Item>
@@ -111,7 +110,6 @@ const mapDispatchToProps = dispatch =>
     bindActionCreators({
         redeemGift: redeemGiftSignal.request
     }, dispatch);
-
 
 const WrappedRedeemForm = Form.create()(RedeemForm);
 
