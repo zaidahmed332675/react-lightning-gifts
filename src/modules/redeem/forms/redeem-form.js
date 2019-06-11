@@ -21,7 +21,8 @@ class RedeemForm extends Component {
             validateFields: PropTypes.func.isRequired
         }).isRequired,
         redeemGift: PropTypes.func.isRequired,
-        giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+        giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+        redeemStatus: PropTypes.object.isRequired
     };
 
     static defaultProps = {
@@ -75,7 +76,17 @@ class RedeemForm extends Component {
     render() {
         const { loading } = this.state;
         const { getFieldDecorator } = this.props.form;
-        const { giftDetails } = this.props;
+        const { giftDetails, redeemStatus } = this.props;
+
+        if (redeemStatus.error) {
+            return (
+                <div style={{ textAlign: 'center' }}>
+                    <p>An error occured</p>
+                    <p>Please contact me@rossdyson.com to resolve with giftId:</p>
+                    <p>{giftDetails.orderId}</p>
+                </div>
+            );
+        }
 
         if (loading || giftDetails.spent) {
             return (
@@ -114,6 +125,13 @@ class RedeemForm extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        ...state,
+        redeemStatus: state.redeem.redeemStatus
+    };
+};
+
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
         redeemGift: redeemGiftSignal.request
@@ -121,4 +139,4 @@ const mapDispatchToProps = dispatch =>
 
 const WrappedRedeemForm = Form.create()(RedeemForm);
 
-export default connect(null, mapDispatchToProps)(WrappedRedeemForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedRedeemForm);
