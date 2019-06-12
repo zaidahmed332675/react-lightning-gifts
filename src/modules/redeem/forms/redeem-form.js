@@ -66,7 +66,7 @@ class RedeemForm extends Component {
     };
 
     validateInvoice = (rule, value, callback) => {
-        if (!_.startsWith(value, 'lnbc1pw0')) {
+        if (!_.startsWith(value, 'lnbc1p')) {
             callback('Only 0 sat Lightning invoices accepted');
         } else {
             callback();
