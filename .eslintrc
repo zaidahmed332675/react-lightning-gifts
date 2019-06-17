@@ -23,7 +23,7 @@
         "function-paren-newline": "off",
         "import/extensions": ["error", "never"],
         "import/no-extraneous-dependencies": "off",
-        "import/no-unresolved": ["error", { "ignore": ["lib", "modules", "components", "layouts", "public", "config"] }],
+        "import/no-unresolved": ["error", { "ignore": ["lib", "modules", "components", "utils", "public", "config"] }],
         "jsx-a11y/anchor-is-valid": [ "error", {
             "components": [ "Link" ],
             "specialLink": [ "to", "hrefLeft", "hrefRight" ],

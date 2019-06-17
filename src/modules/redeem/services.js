@@ -1,7 +1,8 @@
 // NPM Dependencies
 import axios from 'axios';
 
-export const SERVER_URL = 'https://node-satoshi-crate.glitch.me';
+// Util Dependencies
+import { SERVER_URL } from 'utils/constants';
 
 export const getGiftDetails = orderId =>
     axios.get(`${SERVER_URL}/gift/${orderId}`)

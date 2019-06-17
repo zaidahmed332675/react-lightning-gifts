@@ -1,6 +1,9 @@
 // NPM Dependencies
 import { takeLatest, cancelled, fork, put } from 'redux-saga/effects';
 
+// Util Dependencies
+import { APP_NAME } from 'utils/constants';
+
 // Local Dependencies
 import {
     initApplicationSignal,
@@ -22,7 +25,7 @@ export function* workerInitApplication() {
         }));
 
         /* eslint-disable-next-line no-console */
-        console.log(`Lightning in a Box v${APP_VERSION} ${NODE_ENV} initialized`);
+        console.log(`${APP_NAME} v${APP_VERSION} ${NODE_ENV} initialized`);
 
         yield put(initApplicationSignal.success());
     } catch (error) {
