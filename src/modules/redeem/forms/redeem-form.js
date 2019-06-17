@@ -81,8 +81,8 @@ class RedeemForm extends Component {
         if (redeemStatus.error) {
             return (
                 <div style={{ textAlign: 'center' }}>
-                    <p>An error occured</p>
-                    <p>Please contact me@rossdyson.com to resolve with giftId:</p>
+                    <p>It looks like you did not have enough inbound liquidity to receive the gift</p>
+                    <p>If problem persists contact me@rossdyson.com with Gift ID:</p>
                     <p>{giftDetails.orderId}</p>
                 </div>
             );
