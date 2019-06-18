@@ -14,6 +14,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // Constants
 const OUTPUT_DIR = path.resolve('build');
+const isLocal = process.env.NODE_ENV === 'test';
 
 // Plugin Configuration
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -120,7 +121,8 @@ module.exports = {
     plugins: [
         HtmlWebpackPluginConfig,
         EnvironmentPluginConfig,
-        new BundleAnalyzerPlugin({ analyzerPort: 4444 })
+        ...(isLocal ? [new BundleAnalyzerPlugin({ analyzerPort: 4444 })] : [])
+
     ],
     resolve: {
         extensions: [
