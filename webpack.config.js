@@ -120,7 +120,7 @@ module.exports = {
     plugins: [
         HtmlWebpackPluginConfig,
         EnvironmentPluginConfig,
-        new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin({ analyzerPort: 4444 })
     ],
     resolve: {
         extensions: [
