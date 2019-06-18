@@ -1,4 +1,5 @@
-import _ from 'lodash';
+// NPM Dependencies
+import get from 'lodash/get';
 
 class ApiError extends Error {
     constructor(error) {
@@ -6,14 +7,14 @@ class ApiError extends Error {
         const { response, config } = error;
 
         this.code =
-            _.get(response, 'data.error.code',
-                _.get(response, 'data.status',
-                    _.get(response, 'status', 0)));
+            get(response, 'data.error.code',
+                get(response, 'data.status',
+                    get(response, 'status', 0)));
         this.message =
-            _.get(response, 'data.error.message',
-                _.get(response, 'data.message',
-                    _.get(response, 'message', 0)));
-        this.endpoint = _.get(config, 'url');
+            get(response, 'data.error.message',
+                get(response, 'data.message',
+                    get(response, 'message', 0)));
+        this.endpoint = get(config, 'url');
         this.config = error.config;
     }
 }

@@ -6,6 +6,8 @@ const BabelPluginTransformObjectRestSpread = require('babel-plugin-transform-obj
 const BabelPluginTransformObjectAssign = require('babel-plugin-transform-object-assign');
 const BabelPluginTransformClassProperties = require('babel-plugin-transform-class-properties');
 const BabelPluginTransformRuntime = require('babel-plugin-transform-runtime');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 
 // Configuration Dependencies
 // const envConfig = require('./env');
@@ -85,14 +87,14 @@ module.exports = {
                 options: {
                     presets: [
                         'env',
-                        'react',
-                        'flow'
+                        'react'
                     ],
                     plugins: [
                         BabelPluginTransformObjectRestSpread,
                         BabelPluginTransformClassProperties,
                         BabelPluginTransformObjectAssign,
-                        BabelPluginTransformRuntime
+                        BabelPluginTransformRuntime,
+                        ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }] // `style: true` for less
                     ],
                     cacheDirectory: true
                 }
@@ -100,7 +102,6 @@ module.exports = {
         },
         {
             test: /\.css$/,
-            exclude: /node_modules/,
             use: [
                 'style-loader',
                 'css-loader'
@@ -118,7 +119,8 @@ module.exports = {
     },
     plugins: [
         HtmlWebpackPluginConfig,
-        EnvironmentPluginConfig
+        EnvironmentPluginConfig,
+        new BundleAnalyzerPlugin()
     ],
     resolve: {
         extensions: [

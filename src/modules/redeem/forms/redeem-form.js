@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
+import startsWith from 'lodash/startsWith';
 
 // UI Dependencies
 import { Button, Form, Spin, Input } from 'antd';
@@ -66,7 +66,7 @@ class RedeemForm extends Component {
     };
 
     validateInvoice = (rule, value, callback) => {
-        if (!_.startsWith(value, 'lnbc1p')) {
+        if (!startsWith(value, 'lnbc1p')) {
             callback('Only 0 sat Lightning invoices accepted');
         } else {
             callback();

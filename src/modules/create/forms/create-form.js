@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter, Link } from 'react-router-dom';
-import _ from 'lodash';
+import isNumber from 'lodash/isNumber';
+import isEmpty from 'lodash/isEmpty';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
@@ -63,7 +64,7 @@ class CreateForm extends Component {
     };
 
     validateAmount = (rule, value, callback) => {
-        if (!_.isNumber(value)) {
+        if (!isNumber(value)) {
             callback('Please enter numbers only');
         } else if (value < 1) {
             callback('Negative values not supported');
@@ -89,7 +90,7 @@ class CreateForm extends Component {
             );
         }
 
-        if (!_.isEmpty(invoiceStatus)) {
+        if (!isEmpty(invoiceStatus)) {
             const {
                 lightning_invoice: lightningInvoice, status, orderId
             } = invoiceStatus;
