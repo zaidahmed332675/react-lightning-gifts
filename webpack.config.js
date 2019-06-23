@@ -14,7 +14,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // Constants
 const OUTPUT_DIR = path.resolve('build');
-const isLocal = process.env.NODE_ENV === 'test';
+const analyzeBundleSize = process.env.NODE_ENV === 'size';
 
 // Plugin Configuration
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -95,7 +95,7 @@ module.exports = {
                         BabelPluginTransformClassProperties,
                         BabelPluginTransformObjectAssign,
                         BabelPluginTransformRuntime,
-                        ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }] // `style: true` for less
+                        ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }]
                     ],
                     cacheDirectory: true
                 }
@@ -121,7 +121,7 @@ module.exports = {
     plugins: [
         HtmlWebpackPluginConfig,
         EnvironmentPluginConfig,
-        ...(isLocal ? [new BundleAnalyzerPlugin({ analyzerPort: 4444 })] : [])
+        ...(analyzeBundleSize ? [new BundleAnalyzerPlugin({ analyzerPort: 4444 })] : [])
 
     ],
     resolve: {
