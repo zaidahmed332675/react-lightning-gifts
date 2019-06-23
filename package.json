@@ -13,7 +13,7 @@
     "size": "NODE_ENV=size webpack-dev-server",
     "start": "NODE_ENV=test webpack-dev-server --open --history-api-fallback",
     "build:dev": "NODE_ENV=dev webpack --config webpack.config.js",
-    "build:prod": "NODE_ENV=prod webpack --config webpack.config.js",
+    "build:prod": "NODE_ENV=production webpack --config webpack.config.js",
     "deploy:prod": "yarn run build:prod && firebase deploy"
   },
   "dependencies": {
