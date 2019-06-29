@@ -3,6 +3,8 @@ import { compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createLogger } from 'redux-logger';
 
+const { NODE_ENV } = process.env;
+
 /**
  * Filter out actions from the redux logger
  * @param  {object} state - Redux store state.
@@ -40,9 +42,7 @@ const getMiddleware = () =>
     compose(
         applyMiddleware(
             reduxSagaMiddleware,
-            createLogger({
-                predicate: filterActions
-            })
+            ...(NODE_ENV !== 'production' ? [createLogger({ predicate: filterActions })] : [])
         ),
         devTools
     );

@@ -18,7 +18,9 @@ const App = () => (
         <Header style={{ background: 'white' }}>
             <Row>
                 <Col span={16}>
-                    <span>Lightning in a box</span>
+                    <span className="logo-text">
+                        Lightning Gifts
+                    </span>
                 </Col>
                 <Col span={8} style={{ textAlign: 'right' }}>
                     {/* <span>{NODE_ENV}</span> */}

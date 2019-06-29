@@ -101,7 +101,7 @@ class CreateForm extends Component {
                         <p><Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" /></p>
                         <p><Link to={`redeem/${orderId}`}>View your redeemable Bitcoin gift</Link></p>
                         <Paragraph
-                            copyable={{ text: `lightning-in-a-box.firebaseapp.com/redeem/${orderId}` }}
+                            copyable={{ text: `lightning.gifts/redeem/${orderId}` }}
                         >
                             Copy link
                         </Paragraph>
