@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // UI Dependencies
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Icon } from 'antd';
 
 // Local Dependencies
 import './core.styles.scss';
@@ -18,6 +18,12 @@ const App = () => (
         <Header style={{ background: 'white' }}>
             <Row>
                 <Col span={16}>
+                    <Icon
+                        type="thunderbolt"
+                        theme="twoTone"
+                        style={{ fontSize: 30, position: 'relative', bottom: -6, marginRight: 10 }}
+                        twoToneColor="#EDCA0E"
+                    />
                     <span className="logo-text">
                         Lightning Gifts
                     </span>
