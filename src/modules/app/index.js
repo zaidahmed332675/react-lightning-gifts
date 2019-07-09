@@ -21,7 +21,9 @@ const App = () => (
                     <Icon
                         type="thunderbolt"
                         theme="twoTone"
-                        style={{ fontSize: 30, position: 'relative', bottom: -6, marginRight: 10 }}
+                        style={{
+                            fontSize: 30, position: 'relative', bottom: -6, marginRight: 10
+                        }}
                         twoToneColor="#EDCA0E"
                     />
                     <span className="logo-text">
