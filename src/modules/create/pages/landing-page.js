@@ -1,11 +1,11 @@
 // NPM Dependencies
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Row, Col } from 'antd';
+import { Row, Col, Modal } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -15,10 +15,29 @@ import CreateBox from '../components/create-box';
 
 class LandingPage extends Component {
     static propTypes = {
-        // match: PropTypes.object.isRequired
+        invoiceStatus: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showModal: false
+        };
+    }
+
+    toggleModal = () => {
+        const { showModal } = this.state;
+
+        this.setState({
+            showModal: !showModal
+        });
     };
 
     render() {
+        const { showModal } = this.state;
+        const { invoiceStatus } = this.props;
+
         return (
             <Row type="flex" align="middle" style={{ height: '100%' }}>
                 <Col xs={24} sm={{ span: 12 }}>
@@ -38,8 +57,25 @@ class LandingPage extends Component {
                     <h2 style={{ marginBottom: 20, textAlign: 'center' }}>
                         Create a Bitcoin gift in 30 seconds <Emoji label="point-down" symbol="👇️" />
                     </h2>
-                    <CreateBox />
+                    <CreateBox
+                        toggleModal={this.toggleModal}
+                    />
                 </Col>
+                <Modal
+                    title="Shareable QR code of your gift"
+                    visible={showModal}
+                    onCancel={this.toggleModal}
+                    footer={null}
+                    maskClosable={false}
+                >
+                    <div style={{ textAlign: 'center' }}>
+                        <QRCode
+                            value={`https://lightning.gifts/redeem/${invoiceStatus.orderId}`}
+                            size={256}
+                            style={{ marginBottom: 24 }}
+                        />
+                    </div>
+                </Modal>
             </Row>
         );
     }
@@ -47,15 +83,9 @@ class LandingPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ...state
-        // droneOnline: state.cockpit.droneOnline,
-        // cockpitLoading: state.cockpit.cockpitLoading
+        ...state,
+        invoiceStatus: state.create.invoiceStatus
     };
 };
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({
-        // createProject: createProjectSignal.request
-    }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
+export default connect(mapStateToProps)(LandingPage);

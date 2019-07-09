@@ -1,6 +1,6 @@
 // NPM Dependencies
 import React, { Component, Fragment } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 // UI Dependencies
 import { Card, Col, Row } from 'antd';
@@ -9,9 +9,17 @@ import { Card, Col, Row } from 'antd';
 import CreateForm from '../forms/create-form';
 
 class CreateBox extends Component {
-    state = {
-        activeTab: 'basic'
+    static propTypes = {
+        toggleModal: PropTypes.func.isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeTab: 'basic'
+        };
+    }
 
     onTabChange = (key) => {
         this.setState({ activeTab: key });
@@ -19,6 +27,7 @@ class CreateBox extends Component {
 
     render() {
         const { activeTab } = this.state;
+        const { toggleModal } = this.props;
 
         return (
             <Card
@@ -31,7 +40,9 @@ class CreateBox extends Component {
                 <Row type="flex" align="middle" style={{ height: '100%', minHeight: 200 }}>
                     <Col span={24} style={{ textAlign: 'center' }}>
                         {activeTab === 'basic' ?
-                            <CreateForm />
+                            <CreateForm
+                                toggleModal={toggleModal}
+                            />
                             :
                             <Fragment>
                                 <p>Advanced features!</p>

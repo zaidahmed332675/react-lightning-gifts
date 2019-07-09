@@ -9,7 +9,7 @@ import isEmpty from 'lodash/isEmpty';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, InputNumber, Spin, Icon, Input, Typography } from 'antd';
+import { Button, Form, InputNumber, Spin, Icon, Input } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -17,7 +17,7 @@ import Emoji from 'utils/components/emoji';
 // Local Dependencies
 import { createInvoiceSignal } from '../actions';
 
-const { Paragraph } = Typography;
+const { Search } = Input;
 
 class CreateForm extends Component {
     static propTypes = {
@@ -27,7 +27,8 @@ class CreateForm extends Component {
         }).isRequired,
         // history: PropTypes.object.isRequired,
         invoiceStatus: PropTypes.object.isRequired,
-        createInvoice: PropTypes.func.isRequired
+        createInvoice: PropTypes.func.isRequired,
+        toggleModal: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -63,6 +64,12 @@ class CreateForm extends Component {
         });
     };
 
+    copyInputText = (input) => {
+        const copyText = document.querySelector(`#${input}`);
+        copyText.select();
+        document.execCommand('copy');
+    };
+
     validateAmount = (rule, value, callback) => {
         if (!isNumber(value)) {
             callback('Please enter numbers only');
@@ -79,7 +86,7 @@ class CreateForm extends Component {
 
     render() {
         const { loading } = this.state;
-        const { invoiceStatus } = this.props;
+        const { invoiceStatus, toggleModal } = this.props;
         const { getFieldDecorator } = this.props.form;
 
         if (loading) {
@@ -100,11 +107,18 @@ class CreateForm extends Component {
                     <Fragment>
                         <p><Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" /></p>
                         <p><Link to={`redeem/${orderId}`}>View your redeemable Bitcoin gift</Link></p>
-                        <Paragraph
-                            copyable={{ text: `lightning.gifts/redeem/${orderId}` }}
-                        >
-                            Copy link
-                        </Paragraph>
+                        <Search
+                            id="giftLink"
+                            value={`lightning.gifts/redeem/${orderId}`}
+                            enterButton={<Button icon="copy" />}
+                            onSearch={() => this.copyInputText('giftLink')}
+                        />
+                        <p>
+                            <Button type="link" onClick={() => toggleModal()}>
+                                <Icon type="qrcode" />
+                                Display shareable QR code
+                            </Button>
+                        </p>
                     </Fragment>
                 );
             }
@@ -117,7 +131,12 @@ class CreateForm extends Component {
                         size={128}
                         style={{ marginBottom: 12 }}
                     />
-                    <Input addonAfter={<Icon type="copy" />} value={lightningInvoice.payreq} />
+                    <Search
+                        id="payreq"
+                        value={lightningInvoice.payreq}
+                        enterButton={<Button icon="copy" />}
+                        onSearch={() => this.copyInputText('payreq')}
+                    />
                 </Fragment>
             );
         }
