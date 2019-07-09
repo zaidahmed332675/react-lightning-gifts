@@ -81,8 +81,11 @@ class RedeemForm extends Component {
         if (redeemStatus.error) {
             return (
                 <div style={{ textAlign: 'center' }}>
-                    <p>It looks like your node did not have enough inbound liquidity to receive the gift</p>
-                    <p>Please check that you have a channel open with inbound capacity to a well-connected node</p>
+                    <p>It looks like your node did not have enough inbound capacity to receive the gift</p>
+                    <p>To increase your inbound capacity you can use
+                        &nbsp;
+                        <a rel="noopener noreferrer" target="_blank" href="https://www.bitrefill.com/buy/lightning-channel/">Bitrefill</a>
+                    </p>
                     <p>If problem persists contact me@rossdyson.com with Gift ID:</p>
                     <p>{giftDetails.orderId}</p>
                 </div>
