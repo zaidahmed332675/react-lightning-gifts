@@ -41,7 +41,7 @@ class LandingPage extends Component {
         return (
             <Row type="flex" align="middle" style={{ height: '100%' }}>
                 <Col xs={24} sm={{ span: 12 }}>
-                    <div style={{ marginBottom: 30 }}>
+                    <div className="home-text" style={{ marginBottom: 30 }}>
                         <h1 style={{ marginBottom: 20 }} className="avenir banner-text">
                             Bitcoin gifts, minus the fees
                         </h1>
@@ -54,7 +54,7 @@ class LandingPage extends Component {
                     </div>
                 </Col>
                 <Col xs={24} sm={{ span: 8, offset: 4 }}>
-                    <h2 style={{ marginBottom: 20, textAlign: 'center' }}>
+                    <h2 className="callout-text" style={{ marginBottom: 20, textAlign: 'center' }}>
                         Create a Bitcoin gift in 30 seconds <Emoji label="point-down" symbol="👇️" />
                     </h2>
                     <CreateBox

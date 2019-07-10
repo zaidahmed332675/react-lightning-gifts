@@ -67,6 +67,27 @@ img {
     .hide-mobile {
         display: none;
     }
+
+    .home-text {
+        padding: 40px 0;
+        text-align: center;
+
+        .banner-text {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 56px;
+        }
+    }
+
+    .callout-text {
+        font-size: 18px;
+    }
+
+    .create-box {
+        &.ant-card {
+            margin-bottom: 40px;
+        }
+    }
 }
 
 @media only screen and (min-width : 576px) {

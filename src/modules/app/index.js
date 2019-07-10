@@ -11,6 +11,7 @@ import { Layout, Row, Col, Icon } from 'antd';
 import './core.styles.scss';
 import RouterMap from './router';
 
+const { APP_VERSION } = process.env;
 const { Header, Content } = Layout;
 
 const App = () => (
@@ -31,7 +32,7 @@ const App = () => (
                     </span>
                 </Col>
                 <Col span={8} style={{ textAlign: 'right' }}>
-                    {/* <span>{NODE_ENV}</span> */}
+                    <small>v{APP_VERSION} Alpha</small>
                 </Col>
             </Row>
         </Header>
