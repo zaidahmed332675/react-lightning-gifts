@@ -105,20 +105,24 @@ class CreateForm extends Component {
             if (status === 'paid') {
                 return (
                     <Fragment>
-                        <p><Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" /></p>
-                        <p><Link to={`redeem/${orderId}`}>View your redeemable Bitcoin gift</Link></p>
+                        <p style={{ marginBottom: 20 }}>
+                            <Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" />
+                        </p>
+                        <p style={{ marginBottom: 20 }}>
+                            <Link to={`redeem/${orderId}`}>View your redeemable Bitcoin gift</Link>
+                        </p>
+                        <p style={{ marginBottom: 20 }}>
+                            <Button type="link" onClick={() => toggleModal()}>
+                                <Icon type="qrcode" />
+                                Display shareable QR code
+                            </Button>
+                        </p>
                         <Search
                             id="giftLink"
                             value={`lightning.gifts/redeem/${orderId}`}
                             enterButton={<Button icon="copy" />}
                             onSearch={() => this.copyInputText('giftLink')}
                         />
-                        <p>
-                            <Button type="link" onClick={() => toggleModal()}>
-                                <Icon type="qrcode" />
-                                Display shareable QR code
-                            </Button>
-                        </p>
                     </Fragment>
                 );
             }
