@@ -76,19 +76,22 @@ class RedeemPage extends Component {
         return (
             <Row type="flex" align="middle" style={{ height: '100%' }}>
                 <Col span={24}>
-                    <h1 style={{ marginBottom: 40, textAlign: 'center' }} className="avenir banner-text">
+                    <h1 style={{ margin: '40px 0px', textAlign: 'center' }} className="avenir banner-text">
                         A gift from Satoshi,
                         <br />
                         to you
                     </h1>
-                    <p style={{ marginBottom: 40, textAlign: 'center' }}>
-                        Someone has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
-                        <br />
-                        to redeem, create a 0 sat Lightning Network invoice using <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a> or other
-                        <br />
-                        compatible Lightning Network wallets, and paste below <Emoji label="point-down" symbol="👇️" />
-                    </p>
-                    <Row type="flex" align="middle" justify="center">
+                    <div style={{ marginBottom: 40, textAlign: 'center' }}>
+                        <p>
+                            Someone has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
+                        </p>
+                        <p>
+                            To redeem your gift, create a 0 sat Lightning invoice using <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a> or other
+                            <br />
+                            compatible Lightning wallets, and paste below <Emoji label="point-down" symbol="👇️" />
+                        </p>
+                    </div>
+                    <Row type="flex" align="middle" justify="center" className="redeem-form">
                         <Col xs={{ span: 24 }} sm={{ span: 6 }}>
                             <RedeemForm giftDetails={giftDetails} />
                         </Col>

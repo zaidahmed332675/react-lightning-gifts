@@ -106,7 +106,12 @@ class RedeemForm extends Component {
 
         return (
             <Fragment>
-                <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark style={{ textAlign: 'center' }}>
+                <Form
+                    onSubmit={this.handleSubmit}
+                    layout="vertical"
+                    hideRequiredMark
+                    style={{ textAlign: 'center', marginBottom: 40 }}
+                >
                     <Form.Item>
                         {getFieldDecorator('invoice', {
                             rules: [{ validator: this.validateInvoice }]
