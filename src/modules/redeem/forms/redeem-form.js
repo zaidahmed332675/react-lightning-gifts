@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import startsWith from 'lodash/startsWith';
+import endsWith from 'lodash/endsWith';
 
 // UI Dependencies
 import { Button, Form, Spin, Input } from 'antd';
@@ -67,8 +68,9 @@ class RedeemForm extends Component {
 
     validateInvoice = (rule, value, callback) => {
         const { amount } = this.props.giftDetails;
+        const decodedAmount = endsWith(amount.toString(), '00') ? `${(amount / 100)}u` : amount;
 
-        if (!startsWith(value, 'lnbc1p') && !startsWith(value, `lnbc${amount}`)) {
+        if (!startsWith(value, 'lnbc1p') && !startsWith(value, `lnbc${decodedAmount}`)) {
             callback(`Only 0 or ${amount} sat Lightning invoices accepted`);
         } else {
             callback();
