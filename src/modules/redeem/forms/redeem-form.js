@@ -66,8 +66,10 @@ class RedeemForm extends Component {
     };
 
     validateInvoice = (rule, value, callback) => {
-        if (!startsWith(value, 'lnbc1p')) {
-            callback('Only 0 sat Lightning invoices accepted');
+        const { amount } = this.props.giftDetails;
+
+        if (!startsWith(value, 'lnbc1p') && !startsWith(value, `lnbc${amount}`)) {
+            callback(`Only 0 or ${amount} sat Lightning invoices accepted`);
         } else {
             callback();
         }
@@ -98,7 +100,11 @@ class RedeemForm extends Component {
                     {loading ?
                         <Spin tip="loading..." size="large" />
                         :
-                        <p>Your gift has been redeemed! <Emoji label="confeti" symbol="🎉" /></p>
+                        <span className="avenir darker" style={{ fontSize: 28 }}>
+                            Your gift has been redeemed!
+                            <br />
+                            <Emoji label="confeti" symbol="🎉" />
+                        </span>
                     }
                 </div>
             );
@@ -110,7 +116,7 @@ class RedeemForm extends Component {
                     onSubmit={this.handleSubmit}
                     layout="vertical"
                     hideRequiredMark
-                    style={{ textAlign: 'center', marginBottom: 40 }}
+                    style={{ textAlign: 'center' }}
                 >
                     <Form.Item>
                         {getFieldDecorator('invoice', {

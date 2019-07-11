@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // UI Dependencies
-import { Spin, Row, Col } from 'antd';
+import { Spin, Row, Col, Button, Icon } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -29,7 +29,8 @@ class RedeemPage extends Component {
         super(props);
 
         this.state = {
-            loading: true
+            loading: true,
+            zeroSat: true
         };
     }
 
@@ -50,8 +51,17 @@ class RedeemPage extends Component {
         }
     };
 
+    toggleZeroSat = () => {
+        const { zeroSat } = this.state;
+
+        this.setState({
+            zeroSat: !zeroSat
+        });
+    };
+
+
     render() {
-        const { loading } = this.state;
+        const { loading, zeroSat } = this.state;
         const { giftDetails } = this.props;
 
         if (loading || giftDetails === 'notFound') {
@@ -73,9 +83,11 @@ class RedeemPage extends Component {
             );
         }
 
+        const { amount } = giftDetails;
+
         return (
-            <Row type="flex" align="middle" style={{ height: '100%' }}>
-                <Col span={24}>
+            <Row type="flex" align="middle" style={{ height: '100%' }} className="redeem-form">
+                <Col span={24} style={{ marginBottom: 40 }}>
                     <h1 style={{ margin: '40px 0px', textAlign: 'center' }} className="avenir banner-text">
                         A gift from Satoshi,
                         <br />
@@ -90,8 +102,26 @@ class RedeemPage extends Component {
                             <br />
                             compatible Lightning wallets, and paste below <Emoji label="point-down" symbol="👇️" />
                         </p>
+                        <Button type="link" size="small" onClick={this.toggleZeroSat} style={{ marginBottom: 4 }}>
+                            <small>
+                                My wallet cannot create a 0 sat invoice
+                                &nbsp;
+                                {zeroSat ?
+                                    <Icon type="caret-down" />
+                                    :
+                                    <Icon type="caret-up" />
+                                }
+                            </small>
+                        </Button>
+                        {!zeroSat &&
+                            <p>
+                                <small>
+                                    No problem. Create a Lightning invoice for <b>{amount} sats</b> and paste below
+                                </small>
+                            </p>
+                        }
                     </div>
-                    <Row type="flex" align="middle" justify="center" className="redeem-form">
+                    <Row type="flex" align="middle" justify="center">
                         <Col xs={{ span: 24 }} sm={{ span: 6 }}>
                             <RedeemForm giftDetails={giftDetails} />
                         </Col>
