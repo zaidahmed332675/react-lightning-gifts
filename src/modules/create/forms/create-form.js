@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter, Link } from 'react-router-dom';
-import isNumber from 'lodash/isNumber';
-import isEmpty from 'lodash/isEmpty';
+import _ from 'lodash';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
@@ -71,7 +70,7 @@ class CreateForm extends Component {
     };
 
     validateAmount = (rule, value, callback) => {
-        if (!isNumber(value)) {
+        if (!_.isNumber(value)) {
             callback('Please enter numbers only');
         } else if (value < 100) {
             callback('Gifts must over 100 sats');
@@ -97,7 +96,7 @@ class CreateForm extends Component {
             );
         }
 
-        if (!isEmpty(invoiceStatus)) {
+        if (!_.isEmpty(invoiceStatus)) {
             const {
                 lightning_invoice: lightningInvoice, status, orderId
             } = invoiceStatus;

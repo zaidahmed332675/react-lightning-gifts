@@ -7,6 +7,7 @@ const BabelPluginTransformObjectAssign = require('babel-plugin-transform-object-
 const BabelPluginTransformClassProperties = require('babel-plugin-transform-class-properties');
 const BabelPluginTransformRuntime = require('babel-plugin-transform-runtime');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 
 // Configuration Dependencies
@@ -91,6 +92,7 @@ module.exports = {
                         'react'
                     ],
                     plugins: [
+                        'lodash',
                         BabelPluginTransformObjectRestSpread,
                         BabelPluginTransformClassProperties,
                         BabelPluginTransformObjectAssign,
@@ -119,6 +121,9 @@ module.exports = {
         }]
     },
     plugins: [
+        new LodashModuleReplacementPlugin({
+            paths: true
+        }),
         HtmlWebpackPluginConfig,
         EnvironmentPluginConfig,
         ...(analyzeBundleSize ? [new BundleAnalyzerPlugin({ analyzerPort: 4444 })] : [])
