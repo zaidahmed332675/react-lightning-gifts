@@ -1,4 +1,10 @@
-// Import third party ui library css
+.ant-layout-header, .ant-layout-content, .ant-layout-footer {
+    background-color: white;
+}
+
+.ant-layout-footer {
+    padding: 0px 40px 10px 40px;
+}
 
 .scale-to-parent {
     width: 100%;
@@ -56,13 +62,6 @@ img {
     width: 100%;
 }
 
-.layout {
-    height: 100%;
-    max-width: 1200px;
-    margin: 0px auto;
-    background: white;
-}
-
 @media only screen and (max-width : 575px) {
     .ant-layout-content, .ant-layout-header {
         padding: 0px 24px;
@@ -97,6 +96,17 @@ img {
 @media only screen and (min-width : 576px) {
     .ant-layout-content, .ant-layout-header {
         padding: 0px 40px;
+    }
+
+    .layout {
+        height: 100%;
+        max-width: 1200px;
+        margin: 0px auto;
+        background: white;
+    }
+
+    .contentSection {
+        height: 100%;
     }
 
     .hide-desktop {

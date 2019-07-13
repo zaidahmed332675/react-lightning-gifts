@@ -39,14 +39,14 @@ class LandingPage extends Component {
         const { invoiceStatus } = this.props;
 
         return (
-            <Row type="flex" align="middle" style={{ height: '100%' }}>
+            <Row type="flex" align="middle" className="contentSection">
                 <Col xs={24} sm={{ span: 12 }}>
                     <div className="home-text" style={{ marginBottom: 30 }}>
                         <h1 style={{ marginBottom: 20 }} className="avenir banner-text">
                             Bitcoin gifts, minus the fees
                         </h1>
                         <p style={{ marginBottom: 10, fontSize: 24 }}>
-                            Create fee-less Bitcoin gift cards to share with friends, family and your haters.
+                            Create fee-less Bitcoin gift vouchers to share with friends, family, and your haters.
                         </p>
                         <p>
                             Powered by Lightning Network <Emoji label="lighting" symbol="⚡️" />

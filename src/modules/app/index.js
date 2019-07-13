@@ -12,13 +12,13 @@ import './core.styles.scss';
 import RouterMap from './router';
 
 const { APP_VERSION } = process.env;
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const App = () => (
     <Layout className="layout">
-        <Header style={{ background: 'white' }}>
+        <Header>
             <Row>
-                <Col span={16}>
+                <Col span={13}>
                     <Icon
                         type="thunderbolt"
                         theme="twoTone"
@@ -31,16 +31,46 @@ const App = () => (
                         Lightning Gifts
                     </span>
                 </Col>
-                <Col span={8} style={{ textAlign: 'right' }}>
-                    <small>v{APP_VERSION} Alpha</small>
+                <Col span={11} style={{ textAlign: 'right' }}>
+                    <span><small>v{APP_VERSION} Alpha</small></span>
+                    &nbsp;
+                    &nbsp;
+                    <span>
+                        <small>
+                            <a
+                                href="mailto:me@rossdyson.com?Subject=Lightning%20Gifts%20Bug"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                report bug
+                            </a>
+                        </small>
+                    </span>
                 </Col>
             </Row>
         </Header>
-        <Content style={{ height: '100%' }}>
+        <Content>
             <Router>
                 <RouterMap />
             </Router>
         </Content>
+        <Footer>
+            <Row type="flex" justify="end">
+                <Col span={12} style={{ textAlign: 'right' }}>
+                    <small>
+                        made by
+                        &nbsp;
+                        <a
+                            href="https://www.twitter.com/baebb_code"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            baebb
+                        </a>
+                    </small>
+                </Col>
+            </Row>
+        </Footer>
     </Layout>
 );
 

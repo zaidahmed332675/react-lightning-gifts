@@ -9,7 +9,7 @@ import { Row, Col } from 'antd';
  * Not Found Page Component
  */
 const NotFoundPage = () => (
-    <Row type="flex" justify="start">
+    <Row type="flex" justify="center" align="middle">
         <Col>
             Whoops, page not found <br />
             <Link to="/">Go to the home page.</Link>

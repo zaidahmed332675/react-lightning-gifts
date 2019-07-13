@@ -86,7 +86,7 @@ class RedeemPage extends Component {
         const { amount } = giftDetails;
 
         return (
-            <Row type="flex" align="middle" style={{ height: '100%' }} className="redeem-form">
+            <Row type="flex" align="middle" className="contentSection">
                 <Col span={24} style={{ marginBottom: 40 }}>
                     <h1 style={{ margin: '40px 0px', textAlign: 'center' }} className="avenir banner-text">
                         A gift from Satoshi,
