@@ -9,7 +9,6 @@ const BabelPluginTransformRuntime = require('babel-plugin-transform-runtime');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-
 // Configuration Dependencies
 // const envConfig = require('./env');
 
@@ -19,6 +18,7 @@ const analyzeBundleSize = process.env.NODE_ENV === 'size';
 
 // Plugin Configuration
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+    favicon: './public/favicon.ico',
     template: './public/index.html',
     filename: 'index.html',
     inject: 'body'
