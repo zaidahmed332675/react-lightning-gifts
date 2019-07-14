@@ -76,8 +76,8 @@ class CreateForm extends Component {
             callback('Gifts must over 100 sats');
         } else if (value % 1 !== 0) {
             callback('Decimals not supported');
-        } else if (value > 10000) {
-            callback('Only gifts under 10,000 sats supported in alpha');
+        } else if (value > 100000) {
+            callback('Only gifts under 100,001 sats supported in beta');
         } else {
             callback();
         }
