@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import QRCode from 'qrcode.react';
+import ReactGA from 'react-ga';
 
 // UI Dependencies
 import { Row, Col, Modal } from 'antd';
@@ -25,6 +26,10 @@ class LandingPage extends Component {
             showModal: false
         };
     }
+
+    componentDidMount = () => {
+        ReactGA.pageview('/', null, 'Home Page');
+    };
 
     toggleModal = () => {
         const { showModal } = this.state;

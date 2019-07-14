@@ -3,6 +3,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 // UI Dependencies
 import { Layout, Row, Col, Icon } from 'antd';
@@ -11,8 +12,13 @@ import { Layout, Row, Col, Icon } from 'antd';
 import './core.styles.scss';
 import RouterMap from './router';
 
-const { APP_VERSION } = process.env;
+const { APP_VERSION, NODE_ENV } = process.env;
 const { Header, Content, Footer } = Layout;
+
+if (NODE_ENV === 'production') {
+    ReactGA.initialize('UA-143822790-1', { titleCase: false });
+    ReactGA.set({ appName: 'LightningGifts', appVersion: APP_VERSION });
+}
 
 const App = () => (
     <Layout className="layout">
