@@ -38,7 +38,7 @@ const App = () => (
                     </span>
                 </Col>
                 <Col span={11} style={{ textAlign: 'right' }}>
-                    <span><small>v{APP_VERSION} Alpha</small></span>
+                    <span><small>v{APP_VERSION}</small></span>
                     &nbsp;
                     &nbsp;
                     <span>
