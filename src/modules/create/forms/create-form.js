@@ -118,7 +118,7 @@ class CreateForm extends Component {
                         </p>
                         <Search
                             id="giftLink"
-                            value={`lightning.gifts/redeem/${orderId}`}
+                            value={`${window.location.href}redeem/${orderId}`}
                             enterButton={<Button icon="copy" />}
                             onSearch={() => this.copyInputText('giftLink')}
                         />

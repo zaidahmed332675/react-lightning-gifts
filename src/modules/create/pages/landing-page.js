@@ -75,7 +75,7 @@ class LandingPage extends Component {
                 >
                     <div style={{ textAlign: 'center' }}>
                         <QRCode
-                            value={`https://lightning.gifts/redeem/${invoiceStatus.orderId}`}
+                            value={`${window.location.href}redeem/${invoiceStatus.orderId}`}
                             size={256}
                             style={{ marginBottom: 24 }}
                         />

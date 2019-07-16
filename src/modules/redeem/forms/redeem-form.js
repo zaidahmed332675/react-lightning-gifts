@@ -8,11 +8,8 @@ import _ from 'lodash';
 // UI Dependencies
 import { Button, Form, Spin, Input } from 'antd';
 
-// Util Dependencies
-import Emoji from 'utils/components/emoji';
-
 // Local Dependencies
-import { redeemGiftSignal } from '../actions';
+import { redeemGiftSignal, startCheckRedeemStatusSignal } from '../actions';
 
 class RedeemForm extends Component {
     static propTypes = {
@@ -22,7 +19,8 @@ class RedeemForm extends Component {
         }).isRequired,
         redeemGift: PropTypes.func.isRequired,
         giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-        redeemStatus: PropTypes.object.isRequired
+        redeemStatus: PropTypes.object.isRequired,
+        startCheckRedeemStatus: PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -37,8 +35,21 @@ class RedeemForm extends Component {
         };
     }
 
+    componentDidMount = () => {
+        const { startCheckRedeemStatus, giftDetails } = this.props;
+
+        if (giftDetails.spent === 'pending' && giftDetails.withdrawalInfo) {
+            const { id } = giftDetails;
+            const { withdrawalId } = giftDetails.withdrawalInfo;
+
+            startCheckRedeemStatus({ withdrawalId, orderId: id });
+        }
+    };
+
     componentDidUpdate = (prevProps) => {
-        if (this.props.giftDetails !== prevProps.giftDetails) {
+        const { giftDetails } = this.props;
+
+        if (giftDetails !== prevProps.giftDetails) {
             this.setState({
                 loading: false
             });
@@ -95,18 +106,10 @@ class RedeemForm extends Component {
             );
         }
 
-        if (loading || giftDetails.spent) {
+        if (giftDetails.spent === 'pending' || loading) {
             return (
                 <div style={{ textAlign: 'center' }}>
-                    {loading ?
-                        <Spin tip="loading..." size="large" />
-                        :
-                        <span className="avenir darker" style={{ fontSize: 28 }}>
-                            Your gift has been redeemed!
-                            <br />
-                            <Emoji label="confeti" symbol="🎉" />
-                        </span>
-                    }
+                    <Spin tip="Processing gift withdrawal..." size="large" />
                 </div>
             );
         }
@@ -150,7 +153,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        redeemGift: redeemGiftSignal.request
+        redeemGift: redeemGiftSignal.request,
+        startCheckRedeemStatus: startCheckRedeemStatusSignal.request
     }, dispatch);
 
 const WrappedRedeemForm = Form.create()(RedeemForm);

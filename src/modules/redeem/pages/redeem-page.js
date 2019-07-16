@@ -126,7 +126,17 @@ class RedeemPage extends Component {
                     </div>
                     <Row type="flex" align="middle" justify="center">
                         <Col xs={{ span: 24 }} sm={{ span: 6 }}>
-                            <RedeemForm giftDetails={giftDetails} />
+                            {giftDetails.spent && giftDetails.spent !== 'pending' ?
+                                <div style={{ textAlign: 'center' }}>
+                                    <span className="avenir darker" style={{ fontSize: 28 }}>
+                                        Your gift has been redeemed!
+                                        <br />
+                                        <Emoji label="confeti" symbol="🎉" />
+                                    </span>
+                                </div>
+                                :
+                                <RedeemForm giftDetails={giftDetails} />
+                            }
                         </Col>
                     </Row>
                 </Col>
