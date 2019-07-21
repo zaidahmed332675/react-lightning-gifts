@@ -80,8 +80,8 @@ class RedeemForm extends Component {
         const { amount } = this.props.giftDetails;
         const decodedAmount = _.endsWith(amount.toString(), '00') ? `${(amount / 100)}u` : amount;
 
-        if (!_.startsWith(value, 'lnbc1p') && !_.startsWith(value, `lnbc${decodedAmount}`)) {
-            callback(`Only 0 or ${amount} sat Lightning invoices accepted`);
+        if (!_.startsWith(value, `lnbc${decodedAmount}`)) {
+            callback(`Only a ${amount} sat Lightning invoice accepted`);
         } else {
             callback();
         }

@@ -31,7 +31,7 @@ class RedeemPage extends Component {
 
         this.state = {
             loading: true,
-            zeroSat: true
+            helpText: true
         };
     }
 
@@ -55,16 +55,16 @@ class RedeemPage extends Component {
     };
 
     toggleZeroSat = () => {
-        const { zeroSat } = this.state;
+        const { helpText } = this.state;
 
         this.setState({
-            zeroSat: !zeroSat
+            helpText: !helpText
         });
     };
 
 
     render() {
-        const { loading, zeroSat } = this.state;
+        const { loading, helpText } = this.state;
         const { giftDetails } = this.props;
 
         if (loading || giftDetails === 'notFound') {
@@ -101,25 +101,23 @@ class RedeemPage extends Component {
                             Someone has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
                         </p>
                         <p>
-                            To redeem your gift, create a 0 sat Lightning invoice using <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a> or other
-                            <br />
-                            compatible Lightning wallets, and paste below <Emoji label="point-down" symbol="👇️" />
+                            To redeem your gift, create a <b>{amount} sat</b> Lightning invoice, and paste below <Emoji label="point-down" symbol="👇️" />
                         </p>
                         <Button type="link" size="small" onClick={this.toggleZeroSat} style={{ marginBottom: 4 }}>
                             <small>
-                                My wallet cannot create a 0 sat invoice
+                                How do I create a Lightning invoice?
                                 &nbsp;
-                                {zeroSat ?
+                                {helpText ?
                                     <Icon type="caret-down" />
                                     :
                                     <Icon type="caret-up" />
                                 }
                             </small>
                         </Button>
-                        {!zeroSat &&
+                        {!helpText &&
                             <p>
                                 <small>
-                                    No problem. Create a Lightning invoice for <b>{amount} sats</b> and paste below
+                                    You can create a Lightning invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a>, <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a>, or any other Lightning compatible wallets.
                                 </small>
                             </p>
                         }
