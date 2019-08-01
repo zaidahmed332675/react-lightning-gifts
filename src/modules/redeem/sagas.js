@@ -69,11 +69,15 @@ export function* startCheckRedeemStatusOnRequest({ payload }) {
             yield put(replaceRedeemStatus(redeemStatus));
 
             if (redeemStatus.status === 'confirmed') {
-                yield put(getGiftDetailsSignal.request({ orderId }));
-                yield put(stopCheckRedeemStatusSignal.request());
-            }
+                // Give BE .5 secs to update
+                yield call(delay, 500);
 
-            yield call(delay, 5000);
+                yield put(getGiftDetailsSignal.request({ orderId }));
+
+                yield put(stopCheckRedeemStatusSignal.request());
+            } else {
+                yield call(delay, 5000);
+            }
         } catch (error) {
             yield put(startCheckRedeemStatusSignal.failure({ error }));
 
