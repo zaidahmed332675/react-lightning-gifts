@@ -1,5 +1,6 @@
 // NPM Dependencies
 import React, { Component, Fragment } from 'react';
+import QRCode from 'qrcode.react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -116,6 +117,16 @@ class RedeemForm extends Component {
 
         return (
             <Fragment>
+                <div style={{ textAlign: 'center' }}>
+                    <a href={`lightning:${giftDetails.lnurl}`}>
+                        <QRCode
+                            value={giftDetails.lnurl}
+                            style={{ marginBottom: 24 }}
+                            size={null}
+                            renderAs="svg"
+                        />
+                    </a>
+                </div>
                 <Form
                     onSubmit={this.handleSubmit}
                     layout="vertical"
