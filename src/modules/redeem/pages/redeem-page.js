@@ -6,14 +6,14 @@ import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
 
 // UI Dependencies
-import { Spin, Row, Col, Button, Icon } from 'antd';
+import { Spin, Row, Col } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
 import { getGiftDetailsSignal } from '../actions';
-import RedeemForm from '../forms/redeem-form';
+import RedeemOptions from '../components/redeem-options';
 
 class RedeemPage extends Component {
     static propTypes = {
@@ -30,8 +30,7 @@ class RedeemPage extends Component {
         super(props);
 
         this.state = {
-            loading: true,
-            helpText: true
+            loading: true
         };
     }
 
@@ -54,17 +53,8 @@ class RedeemPage extends Component {
         }
     };
 
-    toggleZeroSat = () => {
-        const { helpText } = this.state;
-
-        this.setState({
-            helpText: !helpText
-        });
-    };
-
-
     render() {
-        const { loading, helpText } = this.state;
+        const { loading } = this.state;
         const { giftDetails } = this.props;
 
         if (loading || giftDetails === 'notFound') {
@@ -78,7 +68,7 @@ class RedeemPage extends Component {
                                     size="large"
                                 />
                                 :
-                                <p>Gift  not found</p>
+                                <p>Gift not found</p>
                             }
                         </div>
                     </Col>
@@ -86,57 +76,24 @@ class RedeemPage extends Component {
             );
         }
 
-        const { amount } = giftDetails;
-
         return (
             <Row type="flex" align="middle" className="contentSection">
-                <Col span={24} style={{ marginBottom: 40 }}>
-                    <h1 style={{ margin: '40px 0px', textAlign: 'center' }} className="avenir banner-text">
+                <Col span={24} className="redeemPage">
+                    <h1 style={{ marginBottom: 32, textAlign: 'center' }} className="avenir redeem-banner-text">
                         A gift from Satoshi,
                         <br />
                         to you
                     </h1>
-                    <div style={{ marginBottom: 40, textAlign: 'center' }}>
-                        <p>
-                            Someone has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
-                        </p>
-                        <p>
-                            To redeem your gift, create a <b>{amount} sat</b> Lightning invoice, and paste below <Emoji label="point-down" symbol="👇️" />
-                        </p>
-                        <Button type="link" size="small" onClick={this.toggleZeroSat} style={{ marginBottom: 4 }}>
-                            <small>
-                                How do I create a Lightning invoice?
-                                &nbsp;
-                                {helpText ?
-                                    <Icon type="caret-down" />
-                                    :
-                                    <Icon type="caret-up" />
-                                }
-                            </small>
-                        </Button>
-                        {!helpText &&
+                    <div style={{ marginBottom: 40 }}>
+                        <div style={{ textAlign: 'center', marginBottom: 40 }}>
                             <p>
-                                <small>
-                                    You can create a Lightning invoice using <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a>, <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a>, or any other Lightning compatible wallets.
-                                </small>
+                                Someone has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
+                                <br />
+                                To redeem your gift you have two options:
                             </p>
-                        }
+                        </div>
                     </div>
-                    <Row type="flex" align="middle" justify="center">
-                        <Col xs={{ span: 24 }} sm={{ span: 6 }}>
-                            {giftDetails.spent && giftDetails.spent !== 'pending' ?
-                                <div style={{ textAlign: 'center' }}>
-                                    <span className="avenir darker" style={{ fontSize: 28 }}>
-                                        Your gift has been redeemed!
-                                        <br />
-                                        <Emoji label="confeti" symbol="🎉" />
-                                    </span>
-                                </div>
-                                :
-                                <RedeemForm giftDetails={giftDetails} />
-                            }
-                        </Col>
-                    </Row>
+                    <RedeemOptions giftDetails={giftDetails} />
                 </Col>
             </Row>
         );

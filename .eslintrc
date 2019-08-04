@@ -9,7 +9,7 @@
         "mapsjs": true
     },
     "rules": {
-        "max-len": ["error", { "ignoreStrings": true, "ignoreTemplateLiterals": true, "code": 120 }],
+        "max-len": ["error", { "ignoreStrings": true, "ignoreTemplateLiterals": true, "code": 160 }],
         "comma-dangle": ["error", {
             "arrays": "never",
             "objects": "never",
