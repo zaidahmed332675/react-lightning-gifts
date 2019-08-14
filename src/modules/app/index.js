@@ -39,19 +39,6 @@ const App = () => (
                 </Col>
                 <Col span={11} style={{ textAlign: 'right' }}>
                     <span><small>v{APP_VERSION}</small></span>
-                    &nbsp;
-                    &nbsp;
-                    <span>
-                        <small>
-                            <a
-                                href="mailto:me@rossdyson.com?Subject=Lightning%20Gifts%20Bug"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                report bug
-                            </a>
-                        </small>
-                    </span>
                 </Col>
             </Row>
         </Header>
@@ -62,18 +49,30 @@ const App = () => (
         </Content>
         <Footer>
             <Row type="flex" justify="end">
-                <Col span={12} style={{ textAlign: 'right' }}>
-                    <small>
-                        made by
-                        &nbsp;
-                        <a
-                            href="https://www.twitter.com/baebb_code"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            baebb
-                        </a>
-                    </small>
+                <Col span={24} style={{ textAlign: 'right' }}>
+                    <span style={{ marginRight: 16 }}>
+                        <small>
+                            <a href="https://forms.gle/q3ikxYtRXGrUFZ9a8" target="_blank" rel="noopener noreferrer">
+                                Help
+                            </a>
+                        </small>
+                    </span>
+                    <span style={{ marginRight: 16 }}>
+                        <small>
+                            <a href="https://forms.gle/Ri5eKmFPJQfcR8jr6" target="_blank" rel="noopener noreferrer">
+                                API access
+                            </a>
+                        </small>
+                    </span>
+                    <span>
+                        <small>
+                            made by
+                            &nbsp;
+                            <a href="https://www.twitter.com/baebb_code" target="_blank" rel="noopener noreferrer">
+                                baebb
+                            </a>
+                        </small>
+                    </span>
                 </Col>
             </Row>
         </Footer>

@@ -52,6 +52,11 @@ class CreateBox extends Component {
                                     <li>Notify recipient by email</li>
                                 </ul>
                                 <p>Coming soon!</p>
+                                <p>
+                                    <a href="https://forms.gle/Ri5eKmFPJQfcR8jr6" target="_blank" rel="noopener noreferrer">
+                                        Request API access
+                                    </a>
+                                </p>
                             </Fragment>
                         }
                     </Col>

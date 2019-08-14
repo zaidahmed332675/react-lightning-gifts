@@ -1,6 +1,6 @@
 {
   "name": "lightning-in-a-box-react",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Generate btc vouchers for use on the lightning network",
   "main": "index.js",
   "repository": {

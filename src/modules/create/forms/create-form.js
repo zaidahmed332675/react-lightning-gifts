@@ -98,7 +98,7 @@ class CreateForm extends Component {
 
         if (!_.isEmpty(invoiceStatus)) {
             const {
-                lightning_invoice: lightningInvoice, status, orderId
+                lightning_invoice: lightningInvoice, status, order_id: orderId
             } = invoiceStatus;
 
             if (status === 'paid') {
