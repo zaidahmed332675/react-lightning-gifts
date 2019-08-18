@@ -6,6 +6,8 @@ import { delay } from 'redux-saga';
 import { getGiftDetails, redeemGift, getRedeemStatus } from './services';
 import {
     getGiftDetailsSignal,
+    startGiftStatusPollingSignal,
+    stopGiftStatusPollingSignal,
     redeemGiftSignal,
     replaceGiftDetails,
     startCheckRedeemStatusSignal,
@@ -34,6 +36,33 @@ export function* watchGetGiftDetailsSignal() {
         getGiftDetailsSignal.REQUEST,
         getGiftDetailsOnRequest
     );
+}
+
+export function* giftStatusPolling({ payload }) {
+    while (true) {
+        const { orderId } = payload;
+
+        try {
+            yield put(getGiftDetailsSignal.request({ orderId }));
+
+            yield call(delay, 5000);
+        } catch (error) {
+            yield put(startGiftStatusPollingSignal.failure({ error }));
+
+            yield call(delay, 5000);
+        }
+    }
+}
+
+export function* watchGiftStatusPollingSignal() {
+    while (true) {
+        const payload = yield take(startGiftStatusPollingSignal.REQUEST);
+
+        yield race([
+            call(giftStatusPolling, payload),
+            take(stopGiftStatusPollingSignal.REQUEST)
+        ]);
+    }
 }
 
 export function* redeemGiftOnRequest({ payload }) {
@@ -104,5 +133,6 @@ export function* watchStartCheckRedeemStatusSignal() {
 export default [
     fork(watchRedeemGiftDetailsSignal),
     fork(watchGetGiftDetailsSignal),
+    fork(watchGiftStatusPollingSignal),
     fork(watchStartCheckRedeemStatusSignal)
 ];

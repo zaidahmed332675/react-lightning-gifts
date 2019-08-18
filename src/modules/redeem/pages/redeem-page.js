@@ -12,14 +12,16 @@ import { Spin, Row, Col } from 'antd';
 import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
-import { getGiftDetailsSignal } from '../actions';
+import { getGiftDetailsSignal, startGiftStatusPollingSignal, stopGiftStatusPollingSignal } from '../actions';
 import RedeemOptions from '../components/redeem-options';
 
 class RedeemPage extends Component {
     static propTypes = {
         match: PropTypes.object.isRequired,
         getGiftDetails: PropTypes.func.isRequired,
-        giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+        giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+        startWatchGiftStatus: PropTypes.func.isRequired,
+        stopWatchGiftStatus: PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -44,12 +46,22 @@ class RedeemPage extends Component {
     };
 
     componentDidUpdate = (prevProps) => {
-        const { giftDetails } = this.props;
+        const {
+            giftDetails, match, startWatchGiftStatus, stopWatchGiftStatus
+        } = this.props;
+        const orderId = match.params.id;
 
         if (giftDetails !== prevProps.giftDetails) {
             this.setState({
                 loading: false
             });
+            if (giftDetails !== 'notFound') {
+                startWatchGiftStatus({ orderId });
+            }
+        }
+
+        if (giftDetails && giftDetails.spent === true) {
+            stopWatchGiftStatus();
         }
     };
 
@@ -109,7 +121,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        getGiftDetails: getGiftDetailsSignal.request
+        getGiftDetails: getGiftDetailsSignal.request,
+        startWatchGiftStatus: startGiftStatusPollingSignal.request,
+        stopWatchGiftStatus: stopGiftStatusPollingSignal.request
     }, dispatch);
 
 
