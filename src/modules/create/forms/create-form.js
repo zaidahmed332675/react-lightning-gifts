@@ -8,15 +8,15 @@ import _ from 'lodash';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, InputNumber, Spin, Icon, Input } from 'antd';
+import { Button, Form, InputNumber, Spin, Icon } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
+import InputCopyButton from 'utils/components/input-copy-button';
 
 // Local Dependencies
 import { createInvoiceSignal } from '../actions';
 
-const { Search } = Input;
 
 class CreateForm extends Component {
     static propTypes = {
@@ -61,12 +61,6 @@ class CreateForm extends Component {
                 });
             }
         });
-    };
-
-    copyInputText = (input) => {
-        const copyText = document.querySelector(`#${input}`);
-        copyText.select();
-        document.execCommand('copy');
     };
 
     validateAmount = (rule, value, callback) => {
@@ -116,12 +110,7 @@ class CreateForm extends Component {
                                 Display shareable QR code
                             </Button>
                         </p>
-                        <Search
-                            id="giftLink"
-                            value={`${window.location.href}redeem/${orderId}`}
-                            enterButton={<Button icon="copy" />}
-                            onSearch={() => this.copyInputText('giftLink')}
-                        />
+                        <InputCopyButton text={`${window.location.href}redeem/${orderId}`} />
                     </Fragment>
                 );
             }
@@ -134,12 +123,7 @@ class CreateForm extends Component {
                         size={128}
                         style={{ marginBottom: 12 }}
                     />
-                    <Search
-                        id="payreq"
-                        value={lightningInvoice.payreq}
-                        enterButton={<Button icon="copy" />}
-                        onSearch={() => this.copyInputText('payreq')}
-                    />
+                    <InputCopyButton text={lightningInvoice.payreq} />
                 </Fragment>
             );
         }
