@@ -49,7 +49,7 @@ class RedeemForm extends Component {
     componentDidUpdate = (prevProps) => {
         const { giftDetails } = this.props;
 
-        if (giftDetails !== prevProps.giftDetails) {
+        if (!_.isEqual(giftDetails, prevProps.giftDetails)) {
             this.setState({
                 loading: false
             });

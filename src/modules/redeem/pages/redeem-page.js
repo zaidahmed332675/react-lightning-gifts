@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactGA from 'react-ga';
+import _ from 'lodash';
 
 // UI Dependencies
 import { Spin, Row, Col } from 'antd';
@@ -51,7 +52,7 @@ class RedeemPage extends Component {
         } = this.props;
         const orderId = match.params.id;
 
-        if (giftDetails !== prevProps.giftDetails) {
+        if (!_.isEqual(giftDetails, prevProps.giftDetails)) {
             this.setState({
                 loading: false
             });
