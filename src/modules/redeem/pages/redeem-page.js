@@ -55,7 +55,7 @@ class RedeemPage extends Component {
             this.setState({
                 loading: false
             });
-            if (giftDetails !== 'notFound') {
+            if (giftDetails !== 'notFound' && !giftDetails.spent) {
                 startWatchGiftStatus({ orderId });
             }
         }
