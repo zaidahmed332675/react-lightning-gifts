@@ -23,7 +23,7 @@ export function* createInvoiceOnRequest({ payload }) {
 
         yield put(createInvoiceSignal.success(invoice));
 
-        yield put(startRealTimeCheckInvoiceStatusSignal.request({ chargeId: invoice.charge_id }));
+        yield put(startRealTimeCheckInvoiceStatusSignal.request({ chargeId: invoice.chargeId }));
     } catch (error) {
         yield put(createInvoiceSignal.failure({ error }));
     }
