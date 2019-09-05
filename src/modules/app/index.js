@@ -6,7 +6,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 // UI Dependencies
-import { Layout, Row, Col, Icon } from 'antd';
+import { Layout, Row, Col } from 'antd';
+
+// Public Dependencies
+// eslint-disable-next-line import/extensions
+import logo from 'public/logo250.png';
 
 // Local Dependencies
 import './core.styles.scss';
@@ -25,15 +29,12 @@ const App = () => (
         <Header>
             <Row>
                 <Col span={13}>
-                    <Icon
-                        type="thunderbolt"
-                        theme="twoTone"
-                        style={{
-                            fontSize: 30, position: 'relative', bottom: -6, marginRight: 10
-                        }}
-                        twoToneColor="#EDCA0E"
+                    <img
+                        src={logo}
+                        alt="Lightning Gifts logo"
+                        style={{ width: 32 }}
                     />
-                    <span className="logo-text">
+                    <span className="logo-text avenir" style={{ marginLeft: 5 }}>
                         Lightning Gifts
                     </span>
                 </Col>
