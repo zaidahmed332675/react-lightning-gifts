@@ -1,11 +1,11 @@
 {
-  "name": "lightning-in-a-box-react",
+  "name": "react-lightning-gifts",
   "version": "0.3.3",
   "description": "Generate btc vouchers for use on the lightning network",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justrossthings/lightning-in-a-box-react.git"
+    "url": "git+https://github.com/baebb/react-lightning-gifts.git"
   },
   "author": "Ross Dyson <me@rossdyson.com>",
   "license": "MIT",

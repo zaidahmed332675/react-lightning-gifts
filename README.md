@@ -1,2 +1,2 @@
-# lightning-in-a-box-react
+# react-lightning-gifts
 Generate btc vouchers for use on the lightning network
