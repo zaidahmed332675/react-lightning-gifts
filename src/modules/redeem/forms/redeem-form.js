@@ -6,10 +6,10 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
 // UI Dependencies
-import { Button, Form, Spin, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 
 // Local Dependencies
-import { redeemGiftSignal, startCheckRedeemStatusSignal } from '../actions';
+import { redeemGiftSignal } from '../actions';
 
 class RedeemForm extends Component {
     static propTypes = {
@@ -19,47 +19,17 @@ class RedeemForm extends Component {
         }).isRequired,
         redeemGift: PropTypes.func.isRequired,
         giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-        redeemStatus: PropTypes.object.isRequired,
-        startCheckRedeemStatus: PropTypes.func.isRequired
+        toggleLoading: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         giftDetails: null
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false
-        };
-    }
-
-    componentDidMount = () => {
-        const { startCheckRedeemStatus, giftDetails } = this.props;
-
-        if (giftDetails.spent === 'pending' && giftDetails.withdrawalInfo) {
-            const { id } = giftDetails;
-            const { withdrawalId } = giftDetails.withdrawalInfo;
-
-            startCheckRedeemStatus({ withdrawalId, orderId: id });
-        }
-    };
-
-    componentDidUpdate = (prevProps) => {
-        const { giftDetails } = this.props;
-
-        if (!_.isEqual(giftDetails, prevProps.giftDetails)) {
-            this.setState({
-                loading: false
-            });
-        }
-    };
-
     handleSubmit = (e) => {
         e.preventDefault();
         const {
-            form, redeemGift, giftDetails
+            form, redeemGift, giftDetails, toggleLoading
         } = this.props;
         const { orderId } = giftDetails;
 
@@ -68,10 +38,7 @@ class RedeemForm extends Component {
                 const { invoice } = values;
 
                 redeemGift({ invoice, orderId });
-
-                this.setState({
-                    loading: true
-                });
+                toggleLoading(true);
             }
         });
     };
@@ -88,31 +55,7 @@ class RedeemForm extends Component {
     };
 
     render() {
-        const { loading } = this.state;
         const { getFieldDecorator } = this.props.form;
-        const { giftDetails, redeemStatus } = this.props;
-
-        if (redeemStatus.error) {
-            return (
-                <div style={{ textAlign: 'center' }}>
-                    <p>It looks like your node did not have enough inbound capacity to receive the gift</p>
-                    <p>To increase your inbound capacity you can use
-                        &nbsp;
-                        <a rel="noopener noreferrer" target="_blank" href="https://www.bitrefill.com/buy/lightning-channel/">Bitrefill</a>
-                    </p>
-                    <p>If problem persists contact me@rossdyson.com with Gift ID:</p>
-                    <p>{giftDetails.orderId}</p>
-                </div>
-            );
-        }
-
-        if (loading) {
-            return (
-                <div style={{ textAlign: 'center', marginTop: 16 }}>
-                    <Spin tip="Processing gift withdrawal..." size="large" />
-                </div>
-            );
-        }
 
         return (
             <Fragment>
@@ -144,19 +87,11 @@ class RedeemForm extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        ...state,
-        redeemStatus: state.redeem.redeemStatus
-    };
-};
-
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        redeemGift: redeemGiftSignal.request,
-        startCheckRedeemStatus: startCheckRedeemStatusSignal.request
+        redeemGift: redeemGiftSignal.request
     }, dispatch);
 
 const WrappedRedeemForm = Form.create()(RedeemForm);
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrappedRedeemForm);
+export default connect(null, mapDispatchToProps)(WrappedRedeemForm);

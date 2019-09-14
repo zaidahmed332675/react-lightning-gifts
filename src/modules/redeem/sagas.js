@@ -3,16 +3,13 @@ import { fork, takeLatest, put, call, race, take } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 // Local Dependencies
-import { getGiftDetails, redeemGift, getRedeemStatus } from './services';
+import { getGiftDetails, redeemGift } from './services';
 import {
     getGiftDetailsSignal,
     startGiftStatusPollingSignal,
     stopGiftStatusPollingSignal,
     redeemGiftSignal,
-    replaceGiftDetails,
-    startCheckRedeemStatusSignal,
-    stopCheckRedeemStatusSignal,
-    replaceRedeemStatus
+    replaceGiftDetails
 } from './actions';
 
 export function* getGiftDetailsOnRequest({ payload }) {
@@ -71,11 +68,7 @@ export function* redeemGiftOnRequest({ payload }) {
 
         const redeemGiftRequest = yield call(redeemGift, { orderId, invoice });
 
-        const { withdrawalId } = redeemGiftRequest;
-
         yield put(redeemGiftSignal.success(redeemGiftRequest));
-
-        yield put(startCheckRedeemStatusSignal.request({ withdrawalId, orderId }));
     } catch (error) {
         yield put(redeemGiftSignal.failure({ error }));
     }
@@ -88,51 +81,51 @@ export function* watchRedeemGiftDetailsSignal() {
     );
 }
 
-export function* startCheckRedeemStatusOnRequest({ payload }) {
-    while (true) {
-        const { withdrawalId, orderId } = payload;
+// export function* startCheckRedeemStatusOnRequest({ payload }) {
+//     while (true) {
+//         const { withdrawalId, orderId } = payload;
+//
+//         try {
+//             const redeemStatus = yield call(getRedeemStatus, { withdrawalId, orderId });
+//
+//             yield put(replaceRedeemStatus(redeemStatus));
+//
+//             if (redeemStatus.status === 'confirmed') {
+//                 // Give BE .5 secs to update
+//                 yield call(delay, 500);
+//
+//                 yield put(getGiftDetailsSignal.request({ orderId }));
+//
+//                 yield put(stopCheckRedeemStatusSignal.request());
+//             } else {
+//                 yield call(delay, 5000);
+//             }
+//         } catch (error) {
+//             yield put(startCheckRedeemStatusSignal.failure({ error }));
+//
+//             yield put(replaceRedeemStatus({ error: 'fail' }));
+//
+//             yield put(stopCheckRedeemStatusSignal.request());
+//
+//             // yield call(delay, 15000);
+//         }
+//     }
+// }
 
-        try {
-            const redeemStatus = yield call(getRedeemStatus, { withdrawalId, orderId });
-
-            yield put(replaceRedeemStatus(redeemStatus));
-
-            if (redeemStatus.status === 'confirmed') {
-                // Give BE .5 secs to update
-                yield call(delay, 500);
-
-                yield put(getGiftDetailsSignal.request({ orderId }));
-
-                yield put(stopCheckRedeemStatusSignal.request());
-            } else {
-                yield call(delay, 5000);
-            }
-        } catch (error) {
-            yield put(startCheckRedeemStatusSignal.failure({ error }));
-
-            yield put(replaceRedeemStatus({ error: 'fail' }));
-
-            yield put(stopCheckRedeemStatusSignal.request());
-
-            // yield call(delay, 15000);
-        }
-    }
-}
-
-export function* watchStartCheckRedeemStatusSignal() {
-    while (true) {
-        const payload = yield take(startCheckRedeemStatusSignal.REQUEST);
-
-        yield race([
-            call(startCheckRedeemStatusOnRequest, payload),
-            take(stopCheckRedeemStatusSignal.REQUEST)
-        ]);
-    }
-}
+// export function* watchStartCheckRedeemStatusSignal() {
+//     while (true) {
+//         const payload = yield take(startCheckRedeemStatusSignal.REQUEST);
+//
+//         yield race([
+//             call(startCheckRedeemStatusOnRequest, payload),
+//             take(stopCheckRedeemStatusSignal.REQUEST)
+//         ]);
+//     }
+// }
 
 export default [
     fork(watchRedeemGiftDetailsSignal),
     fork(watchGetGiftDetailsSignal),
-    fork(watchGiftStatusPollingSignal),
-    fork(watchStartCheckRedeemStatusSignal)
+    fork(watchGiftStatusPollingSignal)
+    // fork(watchStartCheckRedeemStatusSignal)
 ];
