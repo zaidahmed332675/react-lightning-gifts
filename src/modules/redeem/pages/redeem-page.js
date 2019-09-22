@@ -92,14 +92,13 @@ class RedeemPage extends Component {
         return (
             <Row type="flex" align="middle" className="contentSection">
                 <Col span={24} className="redeemPage">
-                    <h1 style={{ marginBottom: 32, textAlign: 'center', }} className="avenir redeem-banner-text">
+                    <h1 style={{ marginBottom: 32, textAlign: 'center' }} className="avenir redeem-banner-text">
                         A gift from { giftDetails.senderName || 'Satoshi' },
                         <br />
                         to you
                     </h1>
                     {giftDetails.message && giftDetails.message.length &&
-                        <h2 className="redeem-banner-text"
-                            style={{ margin: "8px auto 16px", textAlign: 'center', maxWidth: '600px' }}>
+                        <h2 className="redeem-banner-text" style={{ margin: '8px auto 16px', textAlign: 'center', maxWidth: '600px' }}>
                             { giftDetails.message }
                         </h2>
                     }

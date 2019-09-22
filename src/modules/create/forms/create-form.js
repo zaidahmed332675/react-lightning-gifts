@@ -9,7 +9,6 @@ import QRCode from 'qrcode.react';
 
 // UI Dependencies
 import { Button, Form, InputNumber, Input, Spin, Icon } from 'antd';
-const { TextArea } = Input;
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -79,7 +78,7 @@ class CreateForm extends Component {
     };
 
     validateMessage = (rule, value, callback) => {
-        if(value && value.length > 160) {
+        if (value && value.length > 160) {
             callback('You\'re message must be under 160 characters.');
         } else {
             callback();
@@ -176,7 +175,7 @@ class CreateForm extends Component {
                         {getFieldDecorator('message', {
                             rules: [{ validator: this.validateMessage }]
                         })(
-                            <TextArea
+                            <Input.TextArea
                                 style={{ width: '100%' }}
                                 placeholder="Message (optional)"
                                 size="large"
