@@ -52,9 +52,9 @@ class CreateForm extends Component {
 
         form.validateFields((err, values) => {
             if (!err) {
-                const { amount, senderName, message } = values;
+                const { amount, senderName, senderMessage } = values;
 
-                createInvoice({ amount, senderName, message });
+                createInvoice({ amount, senderName, senderMessage });
 
                 this.setState({
                     loading: true
@@ -77,7 +77,7 @@ class CreateForm extends Component {
         }
     };
 
-    validateMessage = (rule, value, callback) => {
+    validateSenderMessage = (rule, value, callback) => {
         if (value && value.length > 160) {
             callback('You\'re message must be under 160 characters.');
         } else {
@@ -172,8 +172,8 @@ class CreateForm extends Component {
                         )}
                     </Form.Item>
                     <Form.Item>
-                        {getFieldDecorator('message', {
-                            rules: [{ validator: this.validateMessage }]
+                        {getFieldDecorator('senderMessage', {
+                            rules: [{ validator: this.validateSenderMessage }]
                         })(
                             <Input.TextArea
                                 style={{ width: '100%' }}

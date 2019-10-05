@@ -97,9 +97,9 @@ class RedeemPage extends Component {
                         <br />
                         to you
                     </h1>
-                    {giftDetails.message && giftDetails.message.length &&
-                        <h2 className="redeem-banner-text" style={{ margin: '8px auto 16px', textAlign: 'center', maxWidth: '600px' }}>
-                            { giftDetails.message }
+                    {giftDetails.senderMessage && giftDetails.senderMessage.length &&
+                        <h2 className="redeem-banner-message-text" style={{ margin: '8px auto 28px', textAlign: 'center', maxWidth: '600px' }}>
+                            { giftDetails.senderMessage }
                         </h2>
                     }
                     <div style={{ marginBottom: 40 }}>
