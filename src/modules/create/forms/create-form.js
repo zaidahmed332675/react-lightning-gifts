@@ -118,11 +118,14 @@ class CreateForm extends Component {
             return (
                 <Fragment>
                     <p>Pay invoice with a Lightning compatible wallet to complete your gift card</p>
-                    <QRCode
-                        value={lightningInvoice.payreq}
-                        size={128}
-                        style={{ marginBottom: 12 }}
-                    />
+                    <a href={`lightning:${lightningInvoice.payreq}`}>
+                        <QRCode
+                            value={lightningInvoice.payreq}
+                            size={128}
+                            style={{ marginBottom: 12 }}
+                            renderAs="svg"
+                        />
+                    </a>
                     <InputCopyButton text={lightningInvoice.payreq} />
                 </Fragment>
             );
