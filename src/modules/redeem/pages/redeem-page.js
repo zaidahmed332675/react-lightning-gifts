@@ -93,14 +93,19 @@ class RedeemPage extends Component {
             <Row type="flex" align="middle" className="contentSection">
                 <Col span={24} className="redeemPage">
                     <h1 style={{ marginBottom: 32, textAlign: 'center' }} className="avenir redeem-banner-text">
-                        A gift from Satoshi,
+                        A gift from { giftDetails.senderName || 'Satoshi' },
                         <br />
                         to you
                     </h1>
+                    {giftDetails.senderMessage && giftDetails.senderMessage.length &&
+                        <h2 className="redeem-banner-message-text" style={{ margin: '8px auto 28px', textAlign: 'center', maxWidth: '600px' }}>
+                            { giftDetails.senderMessage }
+                        </h2>
+                    }
                     <div style={{ marginBottom: 40 }}>
                         <div style={{ textAlign: 'center', marginBottom: 40 }}>
                             <p>
-                                Someone has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
+                                { giftDetails.senderName || 'Someone' } has sent you a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
                                 <br />
                                 To redeem your gift you have two options:
                             </p>

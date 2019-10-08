@@ -8,7 +8,7 @@ import _ from 'lodash';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, InputNumber, Spin, Icon } from 'antd';
+import { Button, Form, InputNumber, Input, Spin, Icon } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -52,9 +52,9 @@ class CreateForm extends Component {
 
         form.validateFields((err, values) => {
             if (!err) {
-                const { amount } = values;
+                const { amount, senderName, senderMessage } = values;
 
-                createInvoice({ amount });
+                createInvoice({ amount, senderName, senderMessage });
 
                 this.setState({
                     loading: true
@@ -76,6 +76,22 @@ class CreateForm extends Component {
             callback();
         }
     };
+
+    validateSenderMessage = (rule, value, callback) => {
+        if (value && value.length > 160) {
+            callback('You\'re message must be under 160 characters.');
+        } else {
+            callback();
+        }
+    }
+
+    validateSenderName = (rule, value, callback) => {
+        if (value && value.length > 15) {
+            callback('Name must be under 15 characters.');
+        } else {
+            callback();
+        }
+    }
 
     render() {
         const { loading } = this.state;
@@ -144,6 +160,29 @@ class CreateForm extends Component {
                                 size="large"
                                 addonAfter="sats"
                                 min={1}
+                            />
+                        )}
+                    </Form.Item>
+                    <Form.Item>
+                        {getFieldDecorator('senderName', {
+                            rules: [{ validator: this.validateSenderName }]
+                        })(
+                            <Input
+                                style={{ width: '100%' }}
+                                placeholder="Name (optional)"
+                                size="large"
+                            />
+                        )}
+                    </Form.Item>
+                    <Form.Item>
+                        {getFieldDecorator('senderMessage', {
+                            rules: [{ validator: this.validateSenderMessage }]
+                        })(
+                            <Input.TextArea
+                                style={{ width: '100%' }}
+                                placeholder="Message (optional)"
+                                size="large"
+                                autosize={{ minRows: 2, maxRows: 5 }}
                             />
                         )}
                     </Form.Item>

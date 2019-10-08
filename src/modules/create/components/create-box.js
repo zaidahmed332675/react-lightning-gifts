@@ -47,9 +47,10 @@ class CreateBox extends Component {
                             <Fragment>
                                 <p>Advanced features!</p>
                                 <ul style={{ textAlign: 'left' }}>
-                                    <li>Customizable gift pages, messages, and more</li>
+                                    <li>Customizable gift pages</li>
                                     <li>Batch gift generation API</li>
                                     <li>Notify recipient by email</li>
+                                    <li>And more!</li>
                                 </ul>
                                 <p>Coming soon!</p>
                                 <p>

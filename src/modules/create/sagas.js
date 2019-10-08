@@ -15,9 +15,9 @@ import {
 
 export function* createInvoiceOnRequest({ payload }) {
     try {
-        const { amount } = payload;
+        const { amount, senderName, senderMessage } = payload;
 
-        const invoice = yield call(createInvoice, amount);
+        const invoice = yield call(createInvoice, { amount, senderName, senderMessage });
 
         yield put(replaceInvoiceStatus(invoice));
 
