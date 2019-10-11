@@ -98,7 +98,7 @@ class RedeemOptions extends Component {
                     </Col>
                     <Col xs={24} sm={2}>
                         <Row type="flex" align="middle" justify="center" style={{ height: '100%' }}>
-                            <h3 style={{ height: 30, padding: '16px 0' }}>OR</h3>
+                            <h3 style={{ height: 30, margin: '16px 0' }}>OR</h3>
                         </Row>
                     </Col>
                     <Col xs={24} sm={11}>

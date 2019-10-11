@@ -169,7 +169,7 @@ class CreateForm extends Component {
                         })(
                             <Input
                                 style={{ width: '100%' }}
-                                placeholder="Name (optional)"
+                                placeholder="Recipient name (optional)"
                                 size="large"
                             />
                         )}
@@ -180,7 +180,7 @@ class CreateForm extends Component {
                         })(
                             <Input.TextArea
                                 style={{ width: '100%' }}
-                                placeholder="Message (optional)"
+                                placeholder="Message to recipient (optional)"
                                 size="large"
                                 autosize={{ minRows: 2, maxRows: 5 }}
                             />
