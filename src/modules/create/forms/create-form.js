@@ -78,20 +78,20 @@ class CreateForm extends Component {
     };
 
     validateSenderMessage = (rule, value, callback) => {
-        if (value && value.length > 160) {
-            callback('You\'re message must be under 160 characters.');
+        if (value && value.length > 100) {
+            callback('Your message must be under 100 characters.');
         } else {
             callback();
         }
-    }
+    };
 
     validateSenderName = (rule, value, callback) => {
         if (value && value.length > 15) {
-            callback('Name must be under 15 characters.');
+            callback('Recipient name must be under 15 characters.');
         } else {
             callback();
         }
-    }
+    };
 
     render() {
         const { loading } = this.state;
