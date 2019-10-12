@@ -169,7 +169,7 @@ class CreateForm extends Component {
                         })(
                             <Input
                                 style={{ width: '100%' }}
-                                placeholder="Recipient name (optional)"
+                                placeholder="Sender name (optional)"
                                 size="large"
                             />
                         )}
