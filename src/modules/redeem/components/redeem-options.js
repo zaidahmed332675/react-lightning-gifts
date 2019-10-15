@@ -27,7 +27,8 @@ class RedeemOptions extends Component {
         super(props);
 
         this.state = {
-            helpText: true,
+            showInvoiceHelp: false,
+            showLnurlHelp: false,
             loading: false
         };
     }
@@ -42,19 +43,11 @@ class RedeemOptions extends Component {
         }
     };
 
-    toggleHelpText = () => {
-        const { helpText } = this.state;
-
-        this.setState({
-            helpText: !helpText
-        });
-    };
-
     toggleLoading = loading => this.setState({ loading });
 
     render() {
         const { giftDetails } = this.props;
-        const { helpText, loading } = this.state;
+        const { showInvoiceHelp, showLnurlHelp, loading } = this.state;
 
         if (giftDetails.spent === 'pending' || loading) {
             return (
@@ -84,7 +77,29 @@ class RedeemOptions extends Component {
                     <Col xs={24} sm={11}>
                         <div className="redeemPage__col redeemPage__col--left">
                             <div className="redeemPage__colContent" style={{ textAlign: 'center' }}>
-                                <p><b>1.</b>  Scan or click QR code with an LNURL-compatible wallet</p>
+                                <p style={{ marginBottom: 10 }}>
+                                    <b>1.</b>  Scan or click QR code with an LNURL-compatible wallet
+                                </p>
+                                <Button
+                                    type="link"
+                                    size="small"
+                                    onClick={() => this.setState({ showLnurlHelp: !showLnurlHelp })}
+                                    style={{ marginBottom: 6 }}
+                                >
+                                    <small>
+                                        Which wallets are LNURL-compatible?&nbsp;
+                                        {showLnurlHelp ? <Icon type="caret-up" /> : <Icon type="caret-down" />}
+                                    </small>
+                                </Button>
+                                {showLnurlHelp &&
+                                    <p>
+                                        <small>
+                                            <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://lightning-wallet.com/">Bitcoin Lightning Wallet</a> (Android)</div>
+                                            <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">BlueWallet</a> (iOS & Android)</div>
+                                            <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://walletofsatoshi.com/">Wallet of Satoshi</a> (iOS & Android)</div>
+                                        </small>
+                                    </p>
+                                }
                                 <a href={`lightning:${giftDetails.lnurl}`}>
                                     <QRCode
                                         value={giftDetails.lnurl}
@@ -104,31 +119,28 @@ class RedeemOptions extends Component {
                     <Col xs={24} sm={11}>
                         <div className="redeemPage__col redeemPage__col--right">
                             <div className="redeemPage__colContent" style={{ textAlign: 'center' }}>
-                                <p>
+                                <p style={{ marginBottom: 10 }}>
                                     <b>2.</b> Create a <b>{giftDetails.amount} sat</b> Lightning invoice, and paste below <Emoji label="point-down" symbol="👇️" />
                                 </p>
                                 <Button
                                     type="link"
                                     size="small"
-                                    onClick={this.toggleHelpText}
-                                    style={{ marginBottom: 4 }}
+                                    onClick={() => this.setState({ showInvoiceHelp: !showInvoiceHelp })}
+                                    style={{ marginBottom: 6 }}
                                 >
                                     <small>
-                                        How do I create a Lightning invoice?
-                                        &nbsp;
-                                        {helpText ? <Icon type="caret-down" /> : <Icon type="caret-up" />}
+                                        How do I create a Lightning invoice?&nbsp;
+                                        {showInvoiceHelp ? <Icon type="caret-up" /> : <Icon type="caret-down" />}
                                     </small>
                                 </Button>
-                                {!helpText &&
-                                <p>
-                                    <small>
-                                        You can create a Lightning invoice using
-                                        &nbsp;
-                                        <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a>,
-                                        &nbsp;
-                                        <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a>, or any other Lightning compatible wallets.
-                                    </small>
-                                </p>
+                                {showInvoiceHelp &&
+                                    <p>
+                                        <small>
+                                            You can create a Lightning invoice using&nbsp;
+                                            <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a>,&nbsp;
+                                            <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a>, or any other Lightning compatible wallets.
+                                        </small>
+                                    </p>
                                 }
                                 <RedeemForm
                                     giftDetails={giftDetails}
@@ -149,8 +161,7 @@ class RedeemOptions extends Component {
                                         </small>
                                         <br />
                                         <small>
-                                            To increase your inbound capacity you can use
-                                            &nbsp;
+                                            To increase your inbound capacity you can use&nbsp;
                                             <a rel="noopener noreferrer" target="_blank" href="https://www.bitrefill.com/buy/lightning-channel/">Bitrefill</a>
                                         </small>
                                     </div>
