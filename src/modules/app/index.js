@@ -60,7 +60,7 @@ const App = () => (
                     </span>
                     <span style={{ marginRight: 16 }}>
                         <small>
-                            <a href="https://forms.gle/Ri5eKmFPJQfcR8jr6" target="_blank" rel="noopener noreferrer">
+                            <a href="https://docs.lightning.gifts" target="_blank" rel="noopener noreferrer">
                                 API access
                             </a>
                         </small>
