@@ -93,10 +93,14 @@ class RedeemPage extends Component {
         if (giftDetails.verifyCodeRequired) {
             return (
                 <Row type="flex" align="middle" className="contentSection">
-                    <Col span={24}>
-                        <div style={{ textAlign: 'center' }}>
-                            <VerifyForm orderId={giftDetails.orderId} />
+                    <Col xs={24} sm={{ span: 6, offset: 9 }}>
+                        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+                            <p>
+                                You have been sent a Bitcoin gift on the Lightning Network <Emoji label="confeti" symbol="🎊️" />
+                            </p>
+                            <p>Enter security code to access your gift:</p>
                         </div>
+                        <VerifyForm orderId={giftDetails.orderId} />
                     </Col>
                 </Row>
             );

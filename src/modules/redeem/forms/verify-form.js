@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
 
 // UI Dependencies
 import { Button, Form, Input } from 'antd';
@@ -33,12 +32,11 @@ class VerifyForm extends Component {
     };
 
     validateVerifyCode = (rule, value, callback) => {
-        callback();
-        // if (value.toString().length !== 4) {
-        //     callback('Code is only 4 digits');
-        // } else {
-        //     callback();
-        // }
+        if (value.toString().length !== 4) {
+            callback('Please enter your 4-digit security code');
+        } else {
+            callback();
+        }
     };
 
     numbersOnly = (value, prevValue = '') => {
@@ -57,16 +55,18 @@ class VerifyForm extends Component {
                 onSubmit={this.handleSubmit}
                 layout="vertical"
                 hideRequiredMark
+                autoComplete="off"
                 style={{ textAlign: 'center' }}
             >
                 <Form.Item>
                     {getFieldDecorator('verifyCode', {
-                        // rules: [{ validator: this.validateVerifyCode }],
-                        normalize: this.numbersOnly
+                        rules: [{ validator: this.validateVerifyCode }],
+                        normalize: this.numbersOnly,
+                        validateTrigger: 'onBlur'
                     })(
                         <Input
                             style={{ width: '100%' }}
-                            placeholder="code..."
+                            placeholder="Security code"
                             size="large"
                             maxLength={4}
                         />
@@ -74,7 +74,7 @@ class VerifyForm extends Component {
                 </Form.Item>
                 <Form.Item style={{ marginBottom: 0 }}>
                     <Button type="primary" size="large" style={{ width: '100%' }} htmlType="submit">
-                        Receive gift
+                        Submit
                     </Button>
                 </Form.Item>
             </Form>
