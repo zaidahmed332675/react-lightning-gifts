@@ -15,6 +15,7 @@ import Emoji from 'utils/components/emoji';
 // Local Dependencies
 import { getGiftDetailsSignal, startGiftStatusPollingSignal, stopGiftStatusPollingSignal } from '../actions';
 import RedeemOptions from '../components/redeem-options';
+import VerifyForm from '../forms/verify-form';
 
 class RedeemPage extends Component {
     static propTypes = {
@@ -56,7 +57,7 @@ class RedeemPage extends Component {
             this.setState({
                 loading: false
             });
-            if (giftDetails !== 'notFound' && !giftDetails.spent) {
+            if (giftDetails !== 'notFound' && !giftDetails.spent && !giftDetails.verifyCodeRequired) {
                 startWatchGiftStatus({ orderId });
             }
         }
@@ -83,6 +84,18 @@ class RedeemPage extends Component {
                                 :
                                 <p>Gift not found</p>
                             }
+                        </div>
+                    </Col>
+                </Row>
+            );
+        }
+
+        if (giftDetails.verifyCodeRequired) {
+            return (
+                <Row type="flex" align="middle" className="contentSection">
+                    <Col span={24}>
+                        <div style={{ textAlign: 'center' }}>
+                            <VerifyForm orderId={giftDetails.orderId} />
                         </div>
                     </Col>
                 </Row>
