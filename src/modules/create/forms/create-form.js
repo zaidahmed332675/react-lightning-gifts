@@ -17,7 +17,6 @@ import InputCopyButton from 'utils/components/input-copy-button';
 // Local Dependencies
 import { createInvoiceSignal } from '../actions';
 
-
 class CreateForm extends Component {
     static propTypes = {
         form: PropTypes.shape({
@@ -149,10 +148,17 @@ class CreateForm extends Component {
 
         return (
             <Fragment>
-                <Form onSubmit={this.handleSubmit} layout="vertical" hideRequiredMark style={{ textAlign: 'center' }}>
+                <Form
+                    onSubmit={this.handleSubmit}
+                    layout="vertical"
+                    hideRequiredMark
+                    style={{ textAlign: 'center' }}
+                    autoComplete="off"
+                >
                     <Form.Item>
                         {getFieldDecorator('amount', {
-                            rules: [{ validator: this.validateAmount }]
+                            rules: [{ validator: this.validateAmount }],
+                            validateTrigger: 'onBlur'
                         })(
                             <InputNumber
                                 style={{ width: '100%' }}

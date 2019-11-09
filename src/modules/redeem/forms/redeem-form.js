@@ -64,6 +64,7 @@ class RedeemForm extends Component {
                     layout="vertical"
                     hideRequiredMark
                     style={{ textAlign: 'center' }}
+                    autoComplete="off"
                 >
                     <Form.Item>
                         {getFieldDecorator('invoice', {
