@@ -19,6 +19,7 @@ import VerifyForm from '../forms/verify-form';
 
 class RedeemPage extends Component {
     static propTypes = {
+        history: PropTypes.object.isRequired,
         match: PropTypes.object.isRequired,
         getGiftDetails: PropTypes.func.isRequired,
         giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -41,8 +42,14 @@ class RedeemPage extends Component {
     componentDidMount = () => {
         const { match, getGiftDetails } = this.props;
         const orderId = match.params.id;
+        const params = this.getUrlParams();
+        const verifyCode = params.get('verifyCode') || null;
 
-        getGiftDetails({ orderId });
+        if (verifyCode) {
+            getGiftDetails({ orderId, verifyCode });
+        } else {
+            getGiftDetails({ orderId });
+        }
 
         ReactGA.pageview(`/redeem/${orderId}`, null, 'Redeem Page');
     };
@@ -52,19 +59,35 @@ class RedeemPage extends Component {
             giftDetails, match, startWatchGiftStatus, stopWatchGiftStatus
         } = this.props;
         const orderId = match.params.id;
+        const params = this.getUrlParams();
+        const verifyCode = params.get('verifyCode') || null;
 
         if (!_.isEqual(giftDetails, prevProps.giftDetails)) {
             this.setState({
                 loading: false
             });
             if (giftDetails !== 'notFound' && !giftDetails.spent && !giftDetails.verifyCodeRequired) {
-                startWatchGiftStatus({ orderId });
+                if (verifyCode) {
+                    startWatchGiftStatus({ orderId, verifyCode });
+                } else {
+                    startWatchGiftStatus({ orderId });
+                }
             }
         }
 
         if (giftDetails && giftDetails.spent === true) {
             stopWatchGiftStatus();
         }
+    };
+
+    getUrlParams = () => {
+        const { history } = this.props;
+
+        if (!history.location.search) {
+            return new URLSearchParams();
+        }
+
+        return new URLSearchParams(decodeURIComponent(history.location.search));
     };
 
     render() {

@@ -84,7 +84,6 @@ class VerifyForm extends Component {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-
         // redeemGift: redeemGiftSignal.request
     }, dispatch);
 

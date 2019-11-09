@@ -4,8 +4,8 @@ import axios from 'axios';
 // Util Dependencies
 import { SERVER_URL } from 'utils/constants';
 
-export const getGiftDetails = orderId =>
-    axios.get(`${SERVER_URL}/gift/${orderId}`)
+export const getGiftDetails = ({ orderId, verifyCode = null }) =>
+    axios.get(`${SERVER_URL}/gift/${orderId}${verifyCode ? `?verifyCode=${verifyCode}` : ''}`)
         .then(response => response.data)
         .catch(error => Promise.reject(error));
 

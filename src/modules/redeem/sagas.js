@@ -14,9 +14,9 @@ import {
 
 export function* getGiftDetailsOnRequest({ payload }) {
     try {
-        const { orderId } = payload;
+        const { orderId, verifyCode } = payload;
 
-        const giftDetails = yield call(getGiftDetails, orderId);
+        const giftDetails = yield call(getGiftDetails, { orderId, verifyCode });
 
         yield put(replaceGiftDetails(giftDetails));
 
@@ -37,10 +37,10 @@ export function* watchGetGiftDetailsSignal() {
 
 export function* giftStatusPolling({ payload }) {
     while (true) {
-        const { orderId } = payload;
+        const { orderId, verifyCode } = payload;
 
         try {
-            yield put(getGiftDetailsSignal.request({ orderId }));
+            yield put(getGiftDetailsSignal.request({ orderId, verifyCode }));
 
             yield call(delay, 5000);
         } catch (error) {
