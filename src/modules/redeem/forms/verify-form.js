@@ -9,6 +9,7 @@ import { Button, Form, Input } from 'antd';
 
 class VerifyForm extends Component {
     static propTypes = {
+        history: PropTypes.object.isRequired,
         form: PropTypes.shape({
             getFieldDecorator: PropTypes.func.isRequired,
             validateFields: PropTypes.func.isRequired,
@@ -19,14 +20,14 @@ class VerifyForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { form, orderId } = this.props;
+        const { form, orderId, history } = this.props;
 
         form.validateFields((err, values) => {
             if (!err) {
                 const { verifyCode } = values;
 
-                // redeemGift({ invoice, orderId });
-                // toggleLoading(true);
+                history.push(`/redeem/${orderId}?verifyCode=${verifyCode}`);
+                window.location.reload();
             }
         });
     };

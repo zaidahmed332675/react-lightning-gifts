@@ -13,7 +13,7 @@ import { Spin, Row, Col } from 'antd';
 import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
-import { getGiftDetailsSignal, startGiftStatusPollingSignal, stopGiftStatusPollingSignal } from '../actions';
+import { startGiftStatusPollingSignal, stopGiftStatusPollingSignal } from '../actions';
 import RedeemOptions from '../components/redeem-options';
 import VerifyForm from '../forms/verify-form';
 
@@ -21,7 +21,6 @@ class RedeemPage extends Component {
     static propTypes = {
         history: PropTypes.object.isRequired,
         match: PropTypes.object.isRequired,
-        getGiftDetails: PropTypes.func.isRequired,
         giftDetails: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
         startWatchGiftStatus: PropTypes.func.isRequired,
         stopWatchGiftStatus: PropTypes.func.isRequired
@@ -40,15 +39,15 @@ class RedeemPage extends Component {
     }
 
     componentDidMount = () => {
-        const { match, getGiftDetails } = this.props;
+        const { match, startWatchGiftStatus } = this.props;
         const orderId = match.params.id;
         const params = this.getUrlParams();
         const verifyCode = params.get('verifyCode') || null;
 
         if (verifyCode) {
-            getGiftDetails({ orderId, verifyCode });
+            startWatchGiftStatus({ orderId, verifyCode });
         } else {
-            getGiftDetails({ orderId });
+            startWatchGiftStatus({ orderId });
         }
 
         ReactGA.pageview(`/redeem/${orderId}`, null, 'Redeem Page');
@@ -56,27 +55,21 @@ class RedeemPage extends Component {
 
     componentDidUpdate = (prevProps) => {
         const {
-            giftDetails, match, startWatchGiftStatus, stopWatchGiftStatus
+            giftDetails, stopWatchGiftStatus
         } = this.props;
-        const orderId = match.params.id;
-        const params = this.getUrlParams();
-        const verifyCode = params.get('verifyCode') || null;
 
         if (!_.isEqual(giftDetails, prevProps.giftDetails)) {
             this.setState({
                 loading: false
             });
-            if (giftDetails !== 'notFound' && !giftDetails.spent && !giftDetails.verifyCodeRequired) {
-                if (verifyCode) {
-                    startWatchGiftStatus({ orderId, verifyCode });
-                } else {
-                    startWatchGiftStatus({ orderId });
-                }
-            }
-        }
 
-        if (giftDetails && giftDetails.spent === true) {
-            stopWatchGiftStatus();
+            if (giftDetails && (
+                giftDetails.spent === true ||
+                giftDetails === 'notFound' ||
+                giftDetails.verifyCodeRequired
+            )) {
+                stopWatchGiftStatus();
+            }
         }
     };
 
@@ -92,7 +85,7 @@ class RedeemPage extends Component {
 
     render() {
         const { loading } = this.state;
-        const { giftDetails } = this.props;
+        const { giftDetails, history } = this.props;
 
         if (loading || giftDetails === 'notFound') {
             return (
@@ -123,7 +116,7 @@ class RedeemPage extends Component {
                             </p>
                             <p>Enter security code to access your gift:</p>
                         </div>
-                        <VerifyForm orderId={giftDetails.orderId} />
+                        <VerifyForm orderId={giftDetails.orderId} history={history} />
                     </Col>
                 </Row>
             );
@@ -167,7 +160,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        getGiftDetails: getGiftDetailsSignal.request,
         startWatchGiftStatus: startGiftStatusPollingSignal.request,
         stopWatchGiftStatus: stopGiftStatusPollingSignal.request
     }, dispatch);
