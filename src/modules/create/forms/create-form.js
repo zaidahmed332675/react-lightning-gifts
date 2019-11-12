@@ -8,7 +8,7 @@ import _ from 'lodash';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, InputNumber, Input, Spin, Icon } from 'antd';
+import { Button, Form, Input, Spin, Icon } from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -63,14 +63,12 @@ class CreateForm extends Component {
     };
 
     validateAmount = (rule, value, callback) => {
-        if (!_.isNumber(value)) {
-            callback('Please enter numbers only');
-        } else if (value < 100) {
+        if (value < 100) {
             callback('Gifts must over 100 sats');
         } else if (value % 1 !== 0) {
             callback('Decimals not supported');
         } else if (value > 100000) {
-            callback('Only gifts under 100,001 sats supported in beta');
+            callback('Only gifts under 100,001 sats supported');
         } else {
             callback();
         }
@@ -90,6 +88,14 @@ class CreateForm extends Component {
         } else {
             callback();
         }
+    };
+
+    numbersOnly = (value, prevValue = '') => {
+        const reg = /^[0-9]+$/;
+        if (reg.test(value) || value === '') {
+            return value;
+        }
+        return prevValue;
     };
 
     render() {
@@ -158,12 +164,14 @@ class CreateForm extends Component {
                     <Form.Item>
                         {getFieldDecorator('amount', {
                             rules: [{ validator: this.validateAmount }],
+                            normalize: this.numbersOnly,
                             validateTrigger: 'onBlur'
                         })(
-                            <InputNumber
+                            <Input
                                 style={{ width: '100%' }}
                                 placeholder="Gift amount (satoshi)"
                                 size="large"
+                                addonAfter="sats"
                                 min={1}
                             />
                         )}
