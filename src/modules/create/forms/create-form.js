@@ -164,7 +164,6 @@ class CreateForm extends Component {
                                 style={{ width: '100%' }}
                                 placeholder="Gift amount (satoshi)"
                                 size="large"
-                                addonAfter="sats"
                                 min={1}
                             />
                         )}
