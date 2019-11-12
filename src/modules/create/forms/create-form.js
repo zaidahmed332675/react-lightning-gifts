@@ -52,9 +52,8 @@ class CreateForm extends Component {
         form.validateFields((err, values) => {
             if (!err) {
                 const { amount, senderName, senderMessage } = values;
-
-                createInvoice({ amount, senderName, senderMessage });
-
+                const forceNumber = Number(amount);
+                createInvoice({ amount: forceNumber, senderName, senderMessage });
                 this.setState({
                     loading: true
                 });
