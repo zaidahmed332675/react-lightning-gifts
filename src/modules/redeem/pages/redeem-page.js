@@ -66,7 +66,8 @@ class RedeemPage extends Component {
             if (giftDetails && (
                 giftDetails.spent === true ||
                 giftDetails === 'notFound' ||
-                giftDetails.verifyCodeRequired
+                giftDetails.verifyCodeRequired ||
+                giftDetails.chargeStatus === 'unpaid'
             )) {
                 stopWatchGiftStatus();
             }
@@ -87,7 +88,7 @@ class RedeemPage extends Component {
         const { loading } = this.state;
         const { giftDetails, history } = this.props;
 
-        if (loading || giftDetails === 'notFound') {
+        if (loading || giftDetails === 'notFound' || giftDetails.chargeStatus === 'unpaid') {
             return (
                 <Row type="flex" align="middle" style={{ height: '100%' }}>
                     <Col span={24}>

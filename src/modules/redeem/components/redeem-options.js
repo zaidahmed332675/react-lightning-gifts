@@ -151,7 +151,7 @@ class RedeemOptions extends Component {
                     </Col>
                 </Row>
                 {_.get(giftDetails, 'withdrawalInfo.error') &&
-                    <Row type="flex" align="center">
+                    <Row type="flex" justify="center">
                         <Col xs={24} sm={12} style={{ textAlign: 'center', marginTop: 24 }}>
                             <Alert
                                 message={
