@@ -44,11 +44,7 @@ class RedeemPage extends Component {
         const params = this.getUrlParams();
         const verifyCode = params.get('verifyCode') || null;
 
-        if (verifyCode) {
-            startWatchGiftStatus({ orderId, verifyCode });
-        } else {
-            startWatchGiftStatus({ orderId });
-        }
+        startWatchGiftStatus({ orderId, verifyCode });
 
         ReactGA.pageview(`/redeem/${orderId}`, null, 'Redeem Page');
     };

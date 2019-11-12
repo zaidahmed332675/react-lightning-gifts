@@ -64,9 +64,9 @@ export function* watchGiftStatusPollingSignal() {
 
 export function* redeemGiftOnRequest({ payload }) {
     try {
-        const { orderId, invoice } = payload;
+        const { orderId, invoice, verifyCode = null } = payload;
 
-        const redeemGiftRequest = yield call(redeemGift, { orderId, invoice });
+        const redeemGiftRequest = yield call(redeemGift, { orderId, invoice, verifyCode });
 
         yield put(redeemGiftSignal.success(redeemGiftRequest));
     } catch (error) {

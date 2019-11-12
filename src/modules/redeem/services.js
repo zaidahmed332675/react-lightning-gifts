@@ -10,8 +10,8 @@ export const getGiftDetails = ({ orderId, verifyCode = null }) =>
         .catch(error => Promise.reject(error));
 
 
-export const redeemGift = ({ orderId, invoice }) =>
-    axios.post(`${SERVER_URL}/redeem/${orderId}`, { invoice })
+export const redeemGift = ({ orderId, invoice, verifyCode = null }) =>
+    axios.post(`${SERVER_URL}/redeem/${orderId}`, { invoice, verifyCode })
         .then(response => response.data)
         .catch(error => Promise.reject(error));
 

@@ -31,13 +31,13 @@ class RedeemForm extends Component {
         const {
             form, redeemGift, giftDetails, toggleLoading
         } = this.props;
-        const { orderId } = giftDetails;
+        const { orderId, verifyCode = null } = giftDetails;
 
         form.validateFields((err, values) => {
             if (!err) {
                 const { invoice } = values;
 
-                redeemGift({ invoice, orderId });
+                redeemGift({ invoice, orderId, verifyCode });
                 toggleLoading(true);
             }
         });
