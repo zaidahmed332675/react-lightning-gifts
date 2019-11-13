@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 // UI Dependencies
-import { Row, Col, Button, Icon, Spin, Alert } from 'antd';
+import {
+    Row, Col, Button, Icon, Spin, Alert
+} from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -43,7 +45,7 @@ class RedeemOptions extends Component {
         }
     };
 
-    toggleLoading = loading => this.setState({ loading });
+    toggleLoading = (loading) => this.setState({ loading });
 
     render() {
         const { giftDetails } = this.props;
@@ -72,7 +74,7 @@ class RedeemOptions extends Component {
         }
 
         return (
-            <Fragment>
+            <>
                 <Row type="flex" justify="center">
                     <Col xs={24} sm={11}>
                         <div className="redeemPage__col redeemPage__col--left">
@@ -91,15 +93,16 @@ class RedeemOptions extends Component {
                                         {showLnurlHelp ? <Icon type="caret-up" /> : <Icon type="caret-down" />}
                                     </small>
                                 </Button>
-                                {showLnurlHelp &&
-                                    <p>
-                                        <small>
-                                            <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://lightning-wallet.com/">Bitcoin Lightning Wallet</a> (Android)</div>
-                                            <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">BlueWallet</a> (iOS & Android)</div>
-                                            <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://walletofsatoshi.com/">Wallet of Satoshi</a> (iOS & Android)</div>
-                                        </small>
-                                    </p>
-                                }
+                                {showLnurlHelp
+                                    && (
+                                        <p>
+                                            <small>
+                                                <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://lightning-wallet.com/">Bitcoin Lightning Wallet</a> (Android)</div>
+                                                <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">BlueWallet</a> (iOS & Android)</div>
+                                                <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://walletofsatoshi.com/">Wallet of Satoshi</a> (iOS & Android)</div>
+                                            </small>
+                                        </p>
+                                    )}
                                 <a href={`lightning:${giftDetails.lnurl}`}>
                                     <QRCode
                                         value={giftDetails.lnurl}
@@ -133,15 +136,16 @@ class RedeemOptions extends Component {
                                         {showInvoiceHelp ? <Icon type="caret-up" /> : <Icon type="caret-down" />}
                                     </small>
                                 </Button>
-                                {showInvoiceHelp &&
-                                    <p>
-                                        <small>
+                                {showInvoiceHelp
+                                    && (
+                                        <p>
+                                            <small>
                                             You can create a Lightning invoice using&nbsp;
-                                            <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a>,&nbsp;
-                                            <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a>, or any other Lightning compatible wallets.
-                                        </small>
-                                    </p>
-                                }
+                                                <a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">Bluewallet</a>,&nbsp;
+                                                <a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a>, or any other Lightning compatible wallets.
+                                            </small>
+                                        </p>
+                                    )}
                                 <RedeemForm
                                     giftDetails={giftDetails}
                                     toggleLoading={this.toggleLoading}
@@ -150,29 +154,30 @@ class RedeemOptions extends Component {
                         </div>
                     </Col>
                 </Row>
-                {_.get(giftDetails, 'withdrawalInfo.error') &&
-                    <Row type="flex" justify="center">
-                        <Col xs={24} sm={12} style={{ textAlign: 'center', marginTop: 24 }}>
-                            <Alert
-                                message={
-                                    <div>
-                                        <small>
+                {_.get(giftDetails, 'withdrawalInfo.error')
+                    && (
+                        <Row type="flex" justify="center">
+                            <Col xs={24} sm={12} style={{ textAlign: 'center', marginTop: 24 }}>
+                                <Alert
+                                    message={(
+                                        <div>
+                                            <small>
                                             It looks like your node did not have enough inbound capacity to receive this gift.
-                                        </small>
-                                        <br />
-                                        <small>
+                                            </small>
+                                            <br />
+                                            <small>
                                             To increase your inbound capacity you can use&nbsp;
-                                            <a rel="noopener noreferrer" target="_blank" href="https://www.bitrefill.com/buy/lightning-channel/">Bitrefill</a>
-                                        </small>
-                                    </div>
-                                }
-                                type="warning"
-                                showIcon
-                            />
-                        </Col>
-                    </Row>
-                }
-            </Fragment>
+                                                <a rel="noopener noreferrer" target="_blank" href="https://www.bitrefill.com/buy/lightning-channel/">Bitrefill</a>
+                                            </small>
+                                        </div>
+                                    )}
+                                    type="warning"
+                                    showIcon
+                                />
+                            </Col>
+                        </Row>
+                    )}
+            </>
         );
     }
 }

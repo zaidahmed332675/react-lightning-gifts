@@ -33,4 +33,3 @@ export const REPLACE_GIFT_DETAILS_DELTA = createDeltaAction(MODULE_NAME, REPLACE
 // Action Creators
 export const replaceGiftDetails = createActionCreator(REPLACE_GIFT_DETAILS_DELTA);
 // export const replaceRedeemStatus = createActionCreator(REPLACE_REDEEM_STATUS_DELTA);
-

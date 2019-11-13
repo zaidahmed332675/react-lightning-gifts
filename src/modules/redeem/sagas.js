@@ -1,6 +1,7 @@
 // NPM Dependencies
-import { fork, takeLatest, put, call, race, take } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import {
+    fork, takeLatest, put, call, race, take, delay
+} from 'redux-saga/effects';
 
 // Local Dependencies
 import { getGiftDetails, redeemGift } from './services';
@@ -42,11 +43,11 @@ export function* giftStatusPolling({ payload }) {
         try {
             yield put(getGiftDetailsSignal.request({ orderId, verifyCode }));
 
-            yield call(delay, 5000);
+            yield delay(5000);
         } catch (error) {
             yield put(startGiftStatusPollingSignal.failure({ error }));
 
-            yield call(delay, 5000);
+            yield delay(5000);
         }
     }
 }

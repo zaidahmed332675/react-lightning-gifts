@@ -83,10 +83,9 @@ class VerifyForm extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({
-        // redeemGift: redeemGiftSignal.request
-    }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    // redeemGift: redeemGiftSignal.request
+}, dispatch);
 
 const WrappedVerifyForm = Form.create()(VerifyForm);
 

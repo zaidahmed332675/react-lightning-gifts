@@ -4,8 +4,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BabelPluginTransformObjectRestSpread = require('babel-plugin-transform-object-rest-spread');
 const BabelPluginTransformObjectAssign = require('babel-plugin-transform-object-assign');
-const BabelPluginTransformClassProperties = require('babel-plugin-transform-class-properties');
-const BabelPluginTransformRuntime = require('babel-plugin-transform-runtime');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
@@ -88,15 +86,15 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: [
-                        'env',
-                        'react'
+                        '@babel/preset-env',
+                        '@babel/preset-react'
                     ],
                     plugins: [
                         'lodash',
-                        BabelPluginTransformObjectRestSpread,
-                        BabelPluginTransformClassProperties,
-                        BabelPluginTransformObjectAssign,
-                        BabelPluginTransformRuntime,
+                        // BabelPluginTransformObjectRestSpread,
+                        '@babel/plugin-proposal-class-properties',
+                        // BabelPluginTransformObjectAssign,
+                        '@babel/plugin-transform-runtime',
                         ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }]
                     ],
                     cacheDirectory: true

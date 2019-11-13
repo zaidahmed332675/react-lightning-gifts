@@ -60,10 +60,10 @@ class RedeemPage extends Component {
             });
 
             if (giftDetails && (
-                giftDetails.spent === true ||
-                giftDetails === 'notFound' ||
-                giftDetails.verifyCodeRequired ||
-                giftDetails.chargeStatus === 'unpaid'
+                giftDetails.spent === true
+                || giftDetails === 'notFound'
+                || giftDetails.verifyCodeRequired
+                || giftDetails.chargeStatus === 'unpaid'
             )) {
                 stopWatchGiftStatus();
             }
@@ -89,14 +89,14 @@ class RedeemPage extends Component {
                 <Row type="flex" align="middle" style={{ height: '100%' }}>
                     <Col span={24}>
                         <div style={{ textAlign: 'center' }}>
-                            {loading ?
-                                <Spin
-                                    tip="loading..."
-                                    size="large"
-                                />
-                                :
-                                <p>Gift not found</p>
-                            }
+                            {loading
+                                ? (
+                                    <Spin
+                                        tip="loading..."
+                                        size="large"
+                                    />
+                                )
+                                : <p>Gift not found</p>}
                         </div>
                     </Col>
                 </Row>
@@ -127,11 +127,12 @@ class RedeemPage extends Component {
                         <br />
                         to you
                     </h1>
-                    {giftDetails.senderMessage && giftDetails.senderMessage.length &&
-                        <h2 className="redeem-banner-message-text" style={{ margin: '8px auto 28px', textAlign: 'center', maxWidth: '600px' }}>
-                            { giftDetails.senderMessage }
-                        </h2>
-                    }
+                    {giftDetails.senderMessage && giftDetails.senderMessage.length
+                        && (
+                            <h2 className="redeem-banner-message-text" style={{ margin: '8px auto 28px', textAlign: 'center', maxWidth: '600px' }}>
+                                { giftDetails.senderMessage }
+                            </h2>
+                        )}
                     <div style={{ marginBottom: 40 }}>
                         <div style={{ textAlign: 'center', marginBottom: 40 }}>
                             <p>
@@ -155,11 +156,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({
-        startWatchGiftStatus: startGiftStatusPollingSignal.request,
-        stopWatchGiftStatus: stopGiftStatusPollingSignal.request
-    }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    startWatchGiftStatus: startGiftStatusPollingSignal.request,
+    stopWatchGiftStatus: stopGiftStatusPollingSignal.request
+}, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(RedeemPage);

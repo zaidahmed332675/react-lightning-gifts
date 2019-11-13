@@ -3,7 +3,7 @@
  * @param {String} type - action type
  * @returns {Function} action creator function which helps to inject payloads into an action
  */
-export const createActionCreator = type => (payload, meta) => {
+export const createActionCreator = (type) => (payload, meta) => {
     return {
         type,
         payload,
@@ -51,7 +51,7 @@ export const createDeltaAction = (moduleName, actionBasename) => (
  * @param {String} type - action type
  * @returns {Function} action creator function which helps to inject payloads into an action
  */
-export const createWorkerActionCreator = type => (payload) => {
+export const createWorkerActionCreator = (type) => (payload) => {
     return {
         meta: { webWorker: true },
         type,

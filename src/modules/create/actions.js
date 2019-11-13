@@ -32,4 +32,3 @@ export const UPDATE_INVOICE_PAYMENT_STATUS_DELTA = createDeltaAction(MODULE_NAME
 // Action Creators
 export const replaceInvoiceStatus = createActionCreator(REPLACE_INVOICE_STATUS_DELTA);
 export const updateInvoicePaymentStatus = createActionCreator(UPDATE_INVOICE_PAYMENT_STATUS_DELTA);
-

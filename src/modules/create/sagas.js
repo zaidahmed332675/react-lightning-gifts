@@ -1,6 +1,7 @@
 // NPM Dependencies
-import { fork, takeLatest, put, call, race, take } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import {
+    fork, takeLatest, put, call, race, take, delay
+} from 'redux-saga/effects';
 
 // Local Dependencies
 import { createInvoice, getInvoiceStatus } from './services';
@@ -70,11 +71,11 @@ export function* startRealTimeCheckInvoiceStatusOnRequest({ payload }) {
                 yield put(stopRealTimeCheckInvoiceStatusSignal.request());
             }
 
-            yield call(delay, 5000);
+            yield delay(5000);
         } catch (error) {
             yield put(startRealTimeCheckInvoiceStatusSignal.failure({ error }));
 
-            yield call(delay, 15000);
+            yield delay(15000);
         }
     }
 }

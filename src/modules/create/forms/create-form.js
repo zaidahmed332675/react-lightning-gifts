@@ -8,7 +8,9 @@ import _ from 'lodash';
 import QRCode from 'qrcode.react';
 
 // UI Dependencies
-import { Button, Form, Input, Spin, Icon } from 'antd';
+import {
+    Button, Form, Input, Spin, Icon
+} from 'antd';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';
@@ -117,7 +119,7 @@ class CreateForm extends Component {
 
             if (status === 'paid') {
                 return (
-                    <Fragment>
+                    <>
                         <p style={{ marginBottom: 20 }}>
                             <Emoji label="confeti" symbol="🎊️" /> <b>Payment received!</b> <Emoji label="confeti" symbol="🎊️" />
                         </p>
@@ -131,12 +133,12 @@ class CreateForm extends Component {
                             </Button>
                         </p>
                         <InputCopyButton text={`${window.location.href}redeem/${orderId}`} />
-                    </Fragment>
+                    </>
                 );
             }
 
             return (
-                <Fragment>
+                <>
                     <p>Pay invoice with a Lightning compatible wallet to complete your gift card</p>
                     <a href={`lightning:${lightningInvoice.payreq}`}>
                         <QRCode
@@ -147,12 +149,12 @@ class CreateForm extends Component {
                         />
                     </a>
                     <InputCopyButton text={lightningInvoice.payreq} />
-                </Fragment>
+                </>
             );
         }
 
         return (
-            <Fragment>
+            <>
                 <Form
                     onSubmit={this.handleSubmit}
                     layout="vertical"
@@ -205,7 +207,7 @@ class CreateForm extends Component {
                     </Form.Item>
                 </Form>
                 <small>A Lightning invoice will be generated</small>
-            </Fragment>
+            </>
         );
     }
 }
@@ -217,10 +219,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({
-        createInvoice: createInvoiceSignal.request
-    }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    createInvoice: createInvoiceSignal.request
+}, dispatch);
 
 
 const WrappedCreateForm = Form.create()(CreateForm);

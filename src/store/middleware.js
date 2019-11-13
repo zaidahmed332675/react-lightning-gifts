@@ -26,7 +26,7 @@ const filterActions = (state, action) => {
  */
 export const devTools = window.devToolsExtension ? window.devToolsExtension({
     predicate: filterActions
-}) : f => f;
+}) : (f) => f;
 
 /**
  * Redux saga middleware
@@ -38,13 +38,12 @@ export const reduxSagaMiddleware = createSagaMiddleware();
  * Creates the middleware object to pass into redux.
  * @return {Object} An object containing all the middleware to load into redux.
  */
-const getMiddleware = () =>
-    compose(
-        applyMiddleware(
-            reduxSagaMiddleware,
-            ...(NODE_ENV !== 'production' ? [createLogger({ predicate: filterActions })] : [])
-        ),
-        devTools
-    );
+const getMiddleware = () => compose(
+    applyMiddleware(
+        reduxSagaMiddleware,
+        ...(NODE_ENV !== 'production' ? [createLogger({ predicate: filterActions })] : [])
+    ),
+    devTools
+);
 
 export default getMiddleware;

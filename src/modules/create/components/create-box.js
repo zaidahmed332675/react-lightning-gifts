@@ -35,31 +35,33 @@ class CreateBox extends Component {
                 style={{ width: '100%' }}
                 tabList={[{ key: 'basic', tab: 'Basic' }, { key: 'advanced', tab: 'Advanced' }]}
                 activeTabKey={activeTab}
-                onTabChange={key => this.onTabChange(key)}
+                onTabChange={(key) => this.onTabChange(key)}
             >
                 <Row type="flex" align="middle" style={{ height: '100%', minHeight: 200 }}>
                     <Col span={24} style={{ textAlign: 'center' }}>
-                        {activeTab === 'basic' ?
-                            <CreateForm
-                                toggleModal={toggleModal}
-                            />
-                            :
-                            <Fragment>
-                                <p>Advanced features!</p>
-                                <ul style={{ textAlign: 'left' }}>
-                                    <li>Customizable gift pages</li>
-                                    <li>Batch gift generation API</li>
-                                    <li>Notify recipient by email</li>
-                                    <li>And more!</li>
-                                </ul>
-                                <p>Coming soon!</p>
-                                <p>
-                                    <a href="https://forms.gle/Ri5eKmFPJQfcR8jr6" target="_blank" rel="noopener noreferrer">
+                        {activeTab === 'basic'
+                            ? (
+                                <CreateForm
+                                    toggleModal={toggleModal}
+                                />
+                            )
+                            : (
+                                <>
+                                    <p>Advanced features!</p>
+                                    <ul style={{ textAlign: 'left' }}>
+                                        <li>Customizable gift pages</li>
+                                        <li>Batch gift generation API</li>
+                                        <li>Notify recipient by email</li>
+                                        <li>And more!</li>
+                                    </ul>
+                                    <p>Coming soon!</p>
+                                    <p>
+                                        <a href="https://forms.gle/Ri5eKmFPJQfcR8jr6" target="_blank" rel="noopener noreferrer">
                                         Request API access
-                                    </a>
-                                </p>
-                            </Fragment>
-                        }
+                                        </a>
+                                    </p>
+                                </>
+                            )}
                     </Col>
                 </Row>
             </Card>

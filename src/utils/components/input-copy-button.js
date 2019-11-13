@@ -31,7 +31,7 @@ class InputCopyButton extends Component {
                 <Tooltip
                     placement="top"
                     title={copyText}
-                    onVisibleChange={(visible => visible && this.setState({ copyText: 'Copy' }))}
+                    onVisibleChange={((visible) => visible && this.setState({ copyText: 'Copy' }))}
                 >
                     <CopyToClipboard
                         text={text}

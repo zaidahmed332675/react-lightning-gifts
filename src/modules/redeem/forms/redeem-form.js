@@ -58,7 +58,7 @@ class RedeemForm extends Component {
         const { getFieldDecorator } = this.props.form;
 
         return (
-            <Fragment>
+            <>
                 <Form
                     onSubmit={this.handleSubmit}
                     layout="vertical"
@@ -83,15 +83,14 @@ class RedeemForm extends Component {
                         </Button>
                     </Form.Item>
                 </Form>
-            </Fragment>
+            </>
         );
     }
 }
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({
-        redeemGift: redeemGiftSignal.request
-    }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    redeemGift: redeemGiftSignal.request
+}, dispatch);
 
 const WrappedRedeemForm = Form.create()(RedeemForm);
 

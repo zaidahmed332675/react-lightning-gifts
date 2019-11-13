@@ -1,5 +1,7 @@
 // NPM Dependencies
-import { takeLatest, cancelled, fork, put } from 'redux-saga/effects';
+import {
+    takeLatest, cancelled, fork, put
+} from 'redux-saga/effects';
 
 // Util Dependencies
 import { APP_NAME } from 'utils/constants';
