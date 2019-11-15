@@ -47,17 +47,15 @@ class CreateBox extends Component {
                             )
                             : (
                                 <>
-                                    <p>Advanced features!</p>
+                                    <p><b>Advanced features with LN Gifts API:</b></p>
                                     <ul style={{ textAlign: 'left' }}>
-                                        <li>Customizable gift pages</li>
-                                        <li>Batch gift generation API</li>
-                                        <li>Notify recipient by email</li>
-                                        <li>And more!</li>
+                                        <li>Generate and redeem gifts programmatically</li>
+                                        <li>Get notified when someone redeems your gift with webhooks</li>
+                                        <li>Add a security code to your gifts</li>
                                     </ul>
-                                    <p>Coming soon!</p>
                                     <p>
-                                        <a href="https://forms.gle/Ri5eKmFPJQfcR8jr6" target="_blank" rel="noopener noreferrer">
-                                        Request API access
+                                        <a href="https://docs.lightning.gifts" target="_blank" rel="noopener noreferrer">
+                                            Go to API Docs
                                         </a>
                                     </p>
                                 </>
