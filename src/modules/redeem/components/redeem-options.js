@@ -1,5 +1,5 @@
 // NPM Dependencies
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
 import { connect } from 'react-redux';

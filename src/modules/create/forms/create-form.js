@@ -1,5 +1,5 @@
 // NPM Dependencies
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -40,7 +40,9 @@ class CreateForm extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        if (this.props.invoiceStatus !== prevProps.invoiceStatus) {
+        const { invoiceStatus } = this.props;
+
+        if (invoiceStatus !== prevProps.invoiceStatus) {
             this.setState({
                 loading: false
             });

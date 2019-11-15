@@ -34,6 +34,8 @@
         "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
-        "react/jsx-one-expression-per-line": "off"
+        "react/jsx-one-expression-per-line": "off",
+        "react/no-did-update-set-state": "off",
+        "react/destructuring-assignment": "off"
     }
 }
