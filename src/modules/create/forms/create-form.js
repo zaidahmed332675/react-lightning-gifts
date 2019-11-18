@@ -198,7 +198,7 @@ class CreateForm extends Component {
                                 style={{ width: '100%' }}
                                 placeholder="Message to recipient (optional)"
                                 size="large"
-                                autosize={{ minRows: 2, maxRows: 5 }}
+                                autoSize={{ minRows: 2, maxRows: 5 }}
                             />
                         )}
                     </Form.Item>
