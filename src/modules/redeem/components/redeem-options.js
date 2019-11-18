@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 // UI Dependencies
 import {
-    Row, Col, Button, Icon, Spin, Alert
+    Row, Col, Button, Icon, Spin, Alert, Typography
 } from 'antd';
 
 // Util Dependencies
@@ -15,6 +15,8 @@ import Emoji from 'utils/components/emoji';
 
 // Local Dependencies
 import RedeemForm from '../forms/redeem-form';
+
+const { Paragraph } = Typography;
 
 class RedeemOptions extends Component {
     static propTypes = {
@@ -95,22 +97,26 @@ class RedeemOptions extends Component {
                                 </Button>
                                 {showLnurlHelp
                                     && (
-                                        <p>
+                                        <div style={{ marginBottom: 14 }}>
                                             <small>
                                                 <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://lightning-wallet.com/">Bitcoin Lightning Wallet</a> (Android)</div>
                                                 <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">BlueWallet</a> (iOS & Android)</div>
                                                 <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://walletofsatoshi.com/">Wallet of Satoshi</a> (iOS & Android)</div>
                                             </small>
-                                        </p>
+                                        </div>
                                     )}
                                 <a href={`lightning:${giftDetails.lnurl}`}>
                                     <QRCode
                                         value={giftDetails.lnurl}
-                                        style={{ marginBottom: 14 }}
                                         size={128}
                                         renderAs="svg"
                                     />
                                 </a>
+                                <small>
+                                    <Paragraph copyable={{ text: `lightning:${giftDetails.lnurl}` }}>
+                                        Copy to clipboard
+                                    </Paragraph>
+                                </small>
                             </div>
                         </div>
                     </Col>
