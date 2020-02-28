@@ -67,8 +67,7 @@ const App = () => (
                     </span>
                     <span>
                         <small>
-                            made by
-                            &nbsp;
+                            by&nbsp;
                             <a href="https://www.twitter.com/internet_ross" target="_blank" rel="noopener noreferrer">
                                 @internet_ross
                             </a>
