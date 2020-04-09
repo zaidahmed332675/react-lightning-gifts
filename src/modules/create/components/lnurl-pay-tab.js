@@ -56,8 +56,8 @@ class LnurlPayTab extends Component {
                     {showLnurlHelp && (
                         <div style={{ marginTop: 6 }}>
                             <small>
-                                <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://lightning-wallet.com/">Bitcoin Lightning Wallet</a> (Android)</div>
-                                <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://zeusln.app/">Zeus Wallet</a> (iOS & Android)</div>
+                                <div style={{ marginBottom: 6 }}><a rel="noopener noreferrer" target="_blank" href="https://lightning-wallet.com/">Bitcoin Lightning Wallet</a> (Android)</div>
+                                <div style={{ marginBottom: 6 }}><a rel="noopener noreferrer" target="_blank" href="https://zeusln.app/">Zeus Wallet</a> (iOS & Android)</div>
                             </small>
                         </div>
                     )}

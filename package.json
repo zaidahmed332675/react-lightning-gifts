@@ -1,6 +1,6 @@
 {
   "name": "react-lightning-gifts",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "Generate btc vouchers for use on the lightning network",
   "main": "index.js",
   "repository": {

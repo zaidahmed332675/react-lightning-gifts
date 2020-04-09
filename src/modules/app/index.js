@@ -61,7 +61,7 @@ const App = () => (
                     <span style={{ marginRight: 16 }}>
                         <small>
                             <a href="https://docs.lightning.gifts" target="_blank" rel="noopener noreferrer">
-                                API access
+                                API
                             </a>
                         </small>
                     </span>
@@ -70,6 +70,10 @@ const App = () => (
                             by&nbsp;
                             <a href="https://www.twitter.com/internet_ross" target="_blank" rel="noopener noreferrer">
                                 @internet_ross
+                            </a>
+                            &nbsp;&&nbsp;
+                            <a href="https://twitter.com/fiatjaf" target="_blank" rel="noopener noreferrer">
+                                @fiatjaf
                             </a>
                         </small>
                     </span>
