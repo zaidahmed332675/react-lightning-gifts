@@ -102,6 +102,7 @@ class RedeemOptions extends Component {
                                                 <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://lightning-wallet.com/">Bitcoin Lightning Wallet</a> (Android)</div>
                                                 <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://bluewallet.io/">BlueWallet</a> (iOS & Android)</div>
                                                 <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://walletofsatoshi.com/">Wallet of Satoshi</a> (iOS & Android)</div>
+                                                <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://breez.technology/">Breez wallet</a> (iOS & Android)</div>
                                                 <div style={{ marginBottom: 4 }}><a rel="noopener noreferrer" target="_blank" href="https://zap.jackmallers.com/">Zap wallet</a> (iOS & Android & desktop)</div>
                                             </small>
                                         </div>
