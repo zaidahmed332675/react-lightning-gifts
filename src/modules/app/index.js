@@ -20,7 +20,7 @@ const { APP_VERSION, NODE_ENV } = process.env;
 const { Header, Content, Footer } = Layout;
 
 if (NODE_ENV === 'production') {
-    ReactGA.initialize('UA-143822790-1', { titleCase: false });
+    ReactGA.initialize('G-VL62E8N06K', { titleCase: false });
     ReactGA.set({ appName: 'LightningGifts', appVersion: APP_VERSION });
 }
 
@@ -68,7 +68,6 @@ const App = () => (
                     <span>
                         <small>
                             by&nbsp;
-                            &nbsp;/&nbsp;
                             <a href="https://twitter.com/bootstrapbandit" target="_blank" rel="noopener noreferrer">
                                 @BootstrapBandit
                             </a>
