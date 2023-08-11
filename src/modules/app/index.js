@@ -68,13 +68,6 @@ const App = () => (
                     <span>
                         <small>
                             by&nbsp;
-                            <a href="https://www.twitter.com/internet_ross" target="_blank" rel="noopener noreferrer">
-                                @internet_ross
-                            </a>
-                            &nbsp;/&nbsp;
-                            <a href="https://twitter.com/fiatjaf" target="_blank" rel="noopener noreferrer">
-                                @fiatjaf
-                            </a>
                             &nbsp;/&nbsp;
                             <a href="https://twitter.com/bootstrapbandit" target="_blank" rel="noopener noreferrer">
                                 @BootstrapBandit
