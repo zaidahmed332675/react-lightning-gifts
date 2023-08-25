@@ -1,146 +1,132 @@
-// NPM devDependencies
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BabelPluginTransformObjectRestSpread = require('babel-plugin-transform-object-rest-spread');
-const BabelPluginTransformObjectAssign = require('babel-plugin-transform-object-assign');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+const { DefinePlugin } = require("webpack");
 
-// Configuration Dependencies
-// const envConfig = require('./env');
+const OUTPUT_DIR = path.resolve("build");
+const analyzeBundleSize = process.env.NODE_ENV === "size";
 
-// Constants
-const OUTPUT_DIR = path.resolve('build');
-const analyzeBundleSize = process.env.NODE_ENV === 'size';
-
-// Plugin Configuration
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-    favicon: './public/favicon.ico',
-    template: './public/index.html',
-    filename: 'index.html',
-    inject: 'body'
+    favicon: "./public/favicon.ico",
+    template: "./public/index.html",
+    filename: "index.html",
+    inject: "body",
 });
 
-const EnvironmentPluginConfig = new webpack.DefinePlugin({
-    'process.env': {
+const EnvironmentPluginConfig = new DefinePlugin({
+    "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        APP_VERSION: JSON.stringify(process.env.npm_package_version)
-    }
+        APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    },
 });
 
-// Exported Configuration
 module.exports = {
     devServer: {
-        // historyApiFallback: true,
         compress: true,
-        port: 9000
+        port: 9000,
     },
-    devtool: 'cheap-module-source-map',
-    mode: 'development',
+    devtool: "cheap-module-source-map",
+    mode: "development",
     entry: {
-        app: './src/index.js'
+        app: "./src/index.js",
     },
     output: {
-        filename: '[name].bundle.js?[hash:8]',
+        filename: "[name].bundle.js?[hash:8]",
         path: OUTPUT_DIR,
-        publicPath: '/'
+        publicPath: "/",
     },
     optimization: {
         splitChunks: {
             cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all'
-                }
-            }
-        }
+                    name: "vendors",
+                    chunks: "all",
+                },
+            },
+        },
     },
     module: {
-        rules: [{
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            enforce: 'pre',
-            use: {
-                loader: 'eslint-loader',
-                options: {
-                    emitWarning: true
-                }
-            }
-        },
-        {
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp3)$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 100000
-                }
-            }
-        },
-        {
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        '@babel/preset-env',
-                        '@babel/preset-react'
-                    ],
-                    plugins: [
-                        'lodash',
-                        // BabelPluginTransformObjectRestSpread,
-                        '@babel/plugin-proposal-class-properties',
-                        // BabelPluginTransformObjectAssign,
-                        '@babel/plugin-transform-runtime',
-                        ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }]
-                    ],
-                    cacheDirectory: true
-                }
-            }
-        },
-        {
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                'css-loader'
-            ]
-        },
-        {
-            test: /\.scss$/,
-            exclude: /node_modules/,
-            use: [
-                'style-loader',
-                'css-loader',
-                'sass-loader'
-            ]
-        }]
+        rules: [
+            // {
+            //     test: /\.(js|jsx)$/,
+            //     exclude: /node_modules/,
+            //     enforce: 'pre',
+            //     use: {
+            //         loader: 'eslint-loader',
+            //         options: {
+            //             emitWarning: true
+            //         }
+            //     }
+            // },
+            {
+                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp3)$/,
+                type: "asset/resource",
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["@babel/preset-env", "@babel/preset-react"],
+                        plugins: [
+                            "lodash",
+                            "@babel/plugin-proposal-class-properties",
+                            "@babel/plugin-transform-runtime",
+                            [
+                                "import",
+                                {
+                                    libraryName: "antd",
+                                    libraryDirectory: "es",
+                                    style: "css",
+                                },
+                            ],
+                        ],
+                        cacheDirectory: true,
+                    },
+                },
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            implementation: require.resolve("sass"),
+                        },
+                    },
+                ],
+            },
+        ],
     },
     plugins: [
         new LodashModuleReplacementPlugin({
-            paths: true
+            paths: true,
         }),
         HtmlWebpackPluginConfig,
         EnvironmentPluginConfig,
-        ...(analyzeBundleSize ? [new BundleAnalyzerPlugin({ analyzerPort: 4444 })] : [])
-
+        ...(analyzeBundleSize
+            ? [new BundleAnalyzerPlugin({ analyzerPort: 4444 })]
+            : []),
     ],
     resolve: {
-        extensions: [
-            '.js',
-            '.json',
-            '.css',
-            '.scss'
-        ],
-        modules: ['node_modules', path.resolve(__dirname, 'src')],
+        extensions: [".js", ".json", ".css", ".scss"],
+        modules: ["node_modules", path.resolve(__dirname, "src")],
         alias: {
-            public: path.resolve(__dirname, 'public'),
-            config: path.resolve(__dirname, 'src/config'),
-            lib: path.resolve(__dirname, 'src/lib'),
-            utils: path.resolve(__dirname, 'src/utils'),
-            modules: path.resolve(__dirname, 'src/modules')
-        }
-    }
+            public: path.resolve(__dirname, "public"),
+            config: path.resolve(__dirname, "src/config"),
+            lib: path.resolve(__dirname, "src/lib"),
+            utils: path.resolve(__dirname, "src/utils"),
+            modules: path.resolve(__dirname, "src/modules"),
+        },
+    },
 };

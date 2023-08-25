@@ -1,7 +1,8 @@
 // NPM Dependencies
 import React, { Component } from 'react';
 import QRCode from 'qrcode.react';
-import bech32 from 'bech32';
+import { bech32 } from 'bech32';
+import { Buffer } from 'buffer';
 
 // Util Dependencies
 import Emoji from 'utils/components/emoji';

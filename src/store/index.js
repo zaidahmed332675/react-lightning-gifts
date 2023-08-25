@@ -1,5 +1,5 @@
 // NPM Dependencies
-import { createStore } from 'redux';
+import { legacy_createStore as createStore } from 'redux';
 
 // Module Dependencies
 import { initApplicationSignal } from 'modules/app/actions';

@@ -1,6 +1,6 @@
 // NPM Dependencies
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 // Module Dependencies
 import NotFoundPage from 'modules/error/pages/not-found';
@@ -11,11 +11,11 @@ import RedeemPage from 'modules/redeem/pages/redeem-page';
  * RouterMap
  */
 const RouterMap = () => (
-    <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/redeem/:id" component={RedeemPage} />
-        <Route component={NotFoundPage} />
-    </Switch>
+    <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/redeem/:id" element={<RedeemPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+    </Routes>
 );
 
 export default RouterMap;
